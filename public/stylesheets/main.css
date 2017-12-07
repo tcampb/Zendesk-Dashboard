@@ -26,7 +26,7 @@ html {
 .main-content {
     display: grid;
     grid-column: 1 / 4;
-    grid-template-columns: repeat(2, 1fr);
+    /* grid-template-columns: repeat(2, 1fr); */
     text-align: center;
     color: #666A72;
 }
@@ -53,8 +53,15 @@ html {
 }
 
 .user-picture {
+    display: grid;
+    justify-self: start;
     grid-column: 1 / 2;
     width: 100%;
+}
+
+.user-name {
+    justify-self: end;
+    display: grid;
 }
 
 .user-picture img {
