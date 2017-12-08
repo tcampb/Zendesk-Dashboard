@@ -7,6 +7,21 @@ var parseJSON = bodyParser.json();
 var app = express();
 let currentUsers = {};
 let userRecords = {};
+const midnight = "19:09:00";
+const re = new RegExp('..:..:..');
+let now = null;
+
+
+//Reset file at midnight of each day
+// setInterval(function(){
+//   now = new Date();
+//   now = now.toString().match(re)[0];
+//   console.log(now);
+//   if (midnight === now) {
+    
+//   }
+// }, 1000);
+
 
 
 //Load static resources (HTML, CSS, JS)
@@ -34,6 +49,12 @@ app.post('/api', parseJSON, function(req, res){
   }); 
   
 })
+
+
+
+
+
+
 //Run controllers
 // dataController(app)
 
