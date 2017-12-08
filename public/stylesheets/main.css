@@ -54,10 +54,13 @@ html {
 
 .user-picture {
     display: grid;
+    grid-template-columns: 1fr 1fr;
     justify-self: start;
     grid-column: 1 / 2;
     width: 100%;
 }
+
+
 
 .user-name {
     justify-self: end;
@@ -69,10 +72,11 @@ html {
 }
 
 .user-info {
-    display: grid;
-    grid-column: 2 / 3;
+    display: block;
+
+    /* grid-column: 2 / 3;
     width: 100%;
-    justify-content: start;
+    justify-content: start; */
 }
 
 

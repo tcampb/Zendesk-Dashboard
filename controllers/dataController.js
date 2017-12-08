@@ -1,7 +1,7 @@
 module.exports = function(app){
 
 app.get('/', function(req, res){
-    break;
+    res.sendFile('index')
 
 });
 
