@@ -10,28 +10,6 @@ let currentUsers = {};
 let userRecords = {};
 const midnight = "00:00:00";
 const re = new RegExp('..:..:..');
-let baseFile = {
-	"solved": {
-		"Lisa Zhang": 0,
-		"Hannah Tatum": 0,
-		"Zachary Smith": 0,
-		"Joelle Waksman": 0,
-		"Tim DaGraca": 0,
-		"Katie Owens": 0,
-		"Jacob Richard-Smith": 0,
-		"Tyler Campbell": 0
-	},
-	"assigned": {
-		"Lisa Zhang": 0,
-		"Hannah Tatum": 0,
-		"Zachary Smith": 0,
-		"Joelle Waksman": 0,
-		"Tim DaGraca": 0,
-		"Katie Owens": 0,
-		"Jacob Richard-Smith": 0,
-		"Tyler Campbell": 0
-	}
-}
 
 // Reset file at midnight of each day
 // setInterval(function(){
