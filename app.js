@@ -96,37 +96,60 @@ app.post('/delete', parseURL, function(req, res){
   function findUser(object, name){
     for (key in object) {
 
-      object[key] === name ? delete object[key] : console.log("Incorrect user");
+      object[key].name === name ? delete object[key] : console.log("Incorrect user");
     }
     currentUsers = object;
-    fs.writeFile('currentUsers.json', JSON.stringify(currentUsers));
+    fs.writeFile('currentUsersV2.json', JSON.stringify(currentUsers));
   }
 
-  fs.readFile('currentUsers.json', 'utf8', function(err, data){
+  fs.readFile('currentUsersV2.json', 'utf8', function(err, data){
+    // currentUsers = JSON.parse(data);
     currentUsers = JSON.parse(data);
-    Object.values(currentUsers).includes(userName) ? findUser(currentUsers, userName) : console.log("User not found");
+    currentUserNames = [];
+    Object.values(currentUsers).forEach(function(object){
+      currentUserNames.push(object.name);
+    });
+    // Object.values(currentUsers).includes(userName) ? findUser(currentUsers, userName) : console.log("User not found");
+    currentUserNames.includes(userName) ? findUser(currentUsers, userName) : console.log("User not found");
     }); 
 
   res.redirect('/admin');
 });
 
+app.post('/add', parseURL, function(req, res){
+    var userInfo = JSON.parse(JSON.stringify(req.body));
+    var userName = userInfo.username;
+    var imgSrc = userInfo.img;
 
+    fs.readFile('currentUsersV2.json', 'utf8', function(err, data){
+      currentUsers = JSON.parse(data);
+      var userIdArray = Object.keys(currentUsers);
+      var newUserId = Number(userIdArray.pop()) + 1;
+      currentUsers[newUserId] = {"name": `${userName}`, "imgSrc": `${imgSrc}`};
+      fs.writeFile('currentUsersV2.json', JSON.stringify(currentUsers));
+      res.redirect('/admin');
+      });
+});
 
 
 
 app.post('/api', parseJSON, function(req, res){
   var userObject = req.body;
-
-  fs.readFile('currentUsers.json', 'utf8', function(err, data){
-      currentUsers = JSON.parse(data);
-      
+  fs.readFile('currentUsersV2.json', 'utf8', function(err, data){
+      currentUsers = Object.values(Object.values(JSON.parse(data)));
+      currentUserNames = [];
+      currentUsers.forEach(function(user){
+        currentUserNames.push(user.name);
+      });
+  
       fs.readFile('userRecordsV2.json', 'utf8', function(err, data){
         //Ensure that user in POST request is listed in the currentUsers object
         var userAction = Object.keys(userObject)[0];
         var userName = Object.values(userObject)[0];
         // var userReq = userObject.name;
         userRecords = JSON.parse(data);
-        Object.values(currentUsers).includes(userName) ? userRecords[userAction][userName] += 1 : console.log("User not found");
+        currentUserNames.includes(userName) ? userRecords[userAction][userName] += 1 : console.log("User not found");
+        // Object.values(currentUsers).includes(userName) ? userRecords[userAction][userName] += 1 : console.log("User not found");
         fs.writeFile('userRecordsV2.json', JSON.stringify(userRecords));
         res.status(201).send("Success");
      });
