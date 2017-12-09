@@ -2,9 +2,10 @@ const fs = require('fs');
 const express = require('express');
 const hostname = '127.0.0.1';
 const port = 80;
+var app = express();
 const bodyParser = require('body-parser');
 var parseJSON = bodyParser.json();
-var app = express();
+var parseURL = bodyParser.urlencoded({ extended: false });
 let currentUsers = {};
 let userRecords = {};
 const midnight = "00:00:00";
@@ -33,18 +34,20 @@ let baseFile = {
 }
 
 // Reset file at midnight of each day
-setInterval(function(){
-  now = new Date();
-  now = now.toString().match(re)[0];
-  console.log(now);
-  if (midnight === now) {
-    fs.writeFile('baseFile.json', JSON.stringify(baseFile));
-  }
-}, 1000);
+// setInterval(function(){
+//   now = new Date();
+//   now = now.toString().match(re)[0];
+//   console.log(now);
+//   if (midnight === now) {
+//     fs.writeFile('baseFile.json', JSON.stringify(baseFile));
+//   }
+// }, 1000);
 
 //Load static resources (HTML, CSS, JS)
-app.use('/', express.static('public'));
 
+app.use('/admin', express.static('admin'));
+app.use('/', express.static('public'));
+// app.use('/', express.static('public'));
 //Handle GET requests for userRecords
 app.get('/userRecords', function(req, res){
   fs.readFile('userRecordsV2.json', 'utf8', function(err, data){
@@ -52,6 +55,14 @@ app.get('/userRecords', function(req, res){
     res.send(JSON.stringify(userRecords));
     });
 });
+
+app.get('/dailyGoal', function(req, res){
+  fs.readFile('dailyGoal.json', 'utf8', function(err, data){
+    dailyGoal = JSON.parse(data);
+    res.send(JSON.stringify(dailyGoal));
+    });
+});
+
 
 //Handle post requests from Zendesk
 // app.post('/api', parseJSON, function(req, res){
@@ -72,6 +83,36 @@ app.get('/userRecords', function(req, res){
 // })
 
 //v2
+app.post('/post', parseURL, function(req, res){
+  fs.writeFile('dailyGoal.json', JSON.stringify(req.body));
+  res.redirect('/admin');
+});
+
+
+app.post('/delete', parseURL, function(req, res){
+  // fs.writeFile('dailyGoal.json', JSON.stringify(req.body));
+  var userName = JSON.parse(JSON.stringify(req.body));
+  userName = userName.Username;
+  function findUser(object, name){
+    for (key in object) {
+
+      object[key] === name ? delete object[key] : console.log("Incorrect user");
+    }
+    currentUsers = object;
+    fs.writeFile('currentUsers.json', JSON.stringify(currentUsers));
+  }
+
+  fs.readFile('currentUsers.json', 'utf8', function(err, data){
+    currentUsers = JSON.parse(data);
+    Object.values(currentUsers).includes(userName) ? findUser(currentUsers, userName) : console.log("User not found");
+    }); 
+
+  res.redirect('/admin');
+});
+
+
+
+
 
 app.post('/api', parseJSON, function(req, res){
   var userObject = req.body;

@@ -22,5 +22,10 @@ $(document).ready(function(){
             });
         });
     });
+    $.get('/dailyGoal', function(data){
+        var data = JSON.parse(data);
+        $('.footer').text(`Daily Goal: ${data.ticketNumber} ${data.ticketType} ticket's by ${data.time}`);
+
+    })
     }, 1000);
 });
