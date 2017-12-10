@@ -25,7 +25,6 @@ const re = new RegExp('..:..:..');
 
 app.use('/admin', express.static('admin'));
 app.use('/', express.static('public'));
-// app.use('/', express.static('public'));
 //Handle GET requests for userRecords
 app.get('/userRecords', function(req, res){
   fs.readFile('userRecordsV2.json', 'utf8', function(err, data){
@@ -68,21 +67,28 @@ app.post('/post', parseURL, function(req, res){
 
 
 app.post('/delete', parseURL, function(req, res){
-  // fs.writeFile('dailyGoal.json', JSON.stringify(req.body));
   var userName = JSON.parse(JSON.stringify(req.body));
   userName = userName.Username;
   function findUser(object, name){
     for (key in object) {
-
       object[key].name === name ? delete object[key] : console.log("Incorrect user");
     }
     currentUsers = object;
     fs.writeFile('currentUsersV2.json', JSON.stringify(currentUsers));
+    fs.readFile('userRecordsV2.json', 'utf8', function(err, data){
+      var userRecordsObject = JSON.parse(data);
+      delete userRecordsObject.solved[userName];
+      delete userRecordsObject.assigned[userName];
+      console.log(userRecordsObject);
+      fs.writeFile('userRecordsV2.json', JSON.stringify(userRecordsObject))
+    });
   }
 
   fs.readFile('currentUsersV2.json', 'utf8', function(err, data){
+    
+    data ? currentUsers = JSON.parse(data) : currentUsers = {};
     // currentUsers = JSON.parse(data);
-    currentUsers = JSON.parse(data);
+    // currentUsers = JSON.parse(data);
     currentUserNames = [];
     Object.values(currentUsers).forEach(function(object){
       currentUserNames.push(object.name);
@@ -100,12 +106,22 @@ app.post('/add', parseURL, function(req, res){
     var imgSrc = userInfo.img;
 
     fs.readFile('currentUsersV2.json', 'utf8', function(err, data){
-      currentUsers = JSON.parse(data);
+      // currentUsers = JSON.parse(data);
+      data ? currentUsers = JSON.parse(data) : currentUsers = {};
+      var newUserId;
       var userIdArray = Object.keys(currentUsers);
-      var newUserId = Number(userIdArray.pop()) + 1;
+      userIdArray.length != 0 ? newUserId = Number(userIdArray.pop()) + 1 : newUserId = 1;
+      // var newUserId = Number(userIdArray.pop()) + 1;
       currentUsers[newUserId] = {"name": `${userName}`, "imgSrc": `${imgSrc}`};
       fs.writeFile('currentUsersV2.json', JSON.stringify(currentUsers));
-      res.redirect('/admin');
+      fs.readFile('userRecordsV2.json', 'utf8', function(err, data){
+        data ? userRecordObject = JSON.parse(data) : userRecordObject = {"solved": {}, "assigned": {}};
+        // userRecordObject = JSON.parse(data);
+        userRecordObject.solved[userName] = 0;
+        userRecordObject.assigned[userName] = 0;
+        fs.writeFile('userRecordsV2.json', JSON.stringify(userRecordObject));
+        res.redirect('/admin');
+        });
       });
 });
 
@@ -119,6 +135,7 @@ app.post('/api', parseJSON, function(req, res){
       currentUsers.forEach(function(user){
         currentUserNames.push(user.name);
       });
+      
   
       fs.readFile('userRecordsV2.json', 'utf8', function(err, data){
         //Ensure that user in POST request is listed in the currentUsers object
