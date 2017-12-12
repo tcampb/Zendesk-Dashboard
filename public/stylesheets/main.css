@@ -85,3 +85,7 @@ html {
     grid-column: 1 / 4;
     background-color: #f4faff;
 }
+
+.progress-bar-success {
+    color: white;
+}
