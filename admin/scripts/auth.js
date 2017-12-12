@@ -14,8 +14,6 @@ function configureData(){
     const password = $('[data-password');
     const button = $('[data-submit]');
 
-
-
 //Add sign-up event
 
 button.on('click', function(event){
@@ -33,6 +31,7 @@ button.on('click', function(event){
 
 firebase.auth().onAuthStateChanged(function(user){
     if (user){
+        localStorage.setItem("userId", user.uid);
         $.ajax({
             type: 'POST',
             url: '/admin',

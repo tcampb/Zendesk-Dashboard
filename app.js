@@ -10,6 +10,7 @@ let currentUsers = {};
 let userRecords = {};
 const midnight = "00:00:00";
 const re = new RegExp('..:..:..');
+const token = 'API KEY';
 
 // Reset file at midnight of each day
 // setInterval(function(){
@@ -48,29 +49,37 @@ app.get('/dailyGoal', function(req, res){
 
 //Handle post requests from Zendesk
 app.post('/post', parseURL, function(req, res){
-  fs.writeFile('dailyGoal.json', JSON.stringify(req.body));
-  res.redirect('/admin');
+  if (req.header('TOKEN') != token) {
+    res.sendStatus(403);
+  } else {
+    fs.writeFile('dailyGoal.json', JSON.stringify(req.body));
+    res.redirect('/admin');
+  }
 });
 
 
 app.post('/delete', parseURL, function(req, res){
-  var userName = JSON.parse(JSON.stringify(req.body));
-  var userFound;
-  userName = userName.username;
-  console.log(userName);
-  function findUser(object, name){
-    for (key in object) {
-      object[key].name === name ? delete object[key] : console.log("Incorrect user");
-    }
-    currentUsers = object;
-    fs.writeFile('currentUsersV2.json', JSON.stringify(currentUsers));
-    fs.readFile('userRecordsV2.json', 'utf8', function(err, data){
-      var userRecordsObject = JSON.parse(data);
-      delete userRecordsObject.solved[userName];
-      delete userRecordsObject.assigned[userName];
-      fs.writeFile('userRecordsV2.json', JSON.stringify(userRecordsObject));
-      res.redirect('/admin');
-    });
+
+  if (req.header('TOKEN') != token) {
+    res.sendStatus(403);
+  } else {
+      var userName = JSON.parse(JSON.stringify(req.body));
+      var userFound;
+      userName = userName.username;
+      console.log(userName);
+      function findUser(object, name){
+        for (key in object) {
+          object[key].name === name ? delete object[key] : console.log("Incorrect user");
+        }
+        currentUsers = object;
+        fs.writeFile('currentUsersV2.json', JSON.stringify(currentUsers));
+        fs.readFile('userRecordsV2.json', 'utf8', function(err, data){
+          var userRecordsObject = JSON.parse(data);
+          delete userRecordsObject.solved[userName];
+          delete userRecordsObject.assigned[userName];
+          fs.writeFile('userRecordsV2.json', JSON.stringify(userRecordsObject));
+          res.redirect('/admin');
+        });
   }
 
   fs.readFile('currentUsersV2.json', 'utf8', function(err, data){
@@ -82,13 +91,16 @@ app.post('/delete', parseURL, function(req, res){
     });
     currentUserNames.includes(userName) ? findUser(currentUsers, userName) : res.redirect('/admin?response=error404');
     });
+  }
 });
 
 app.post('/add', parseURL, function(req, res){
+  if (req.header('TOKEN') != token) {
+    res.sendStatus(403);
+  } else {
     var userInfo = JSON.parse(JSON.stringify(req.body));
     var userName = userInfo.username;
     var imgSrc = userInfo.img;
-    console.log(req.body);
 
     fs.readFile('currentUsersV2.json', 'utf8', function(err, data){
       err && res.redirect('/admin/error=500');
@@ -104,15 +116,16 @@ app.post('/add', parseURL, function(req, res){
         userRecordObject.solved[userName] = 0;
         userRecordObject.assigned[userName] = 0;
         fs.writeFile('userRecordsV2.json', JSON.stringify(userRecordObject));
-        // res.redirect('/admin');
-        res.send("test");
+        res.end()
         });
       });
+    }
 });
 
 
 
 app.post('/api', parseJSON, function(req, res){
+  console.log(req.headers);
   var userObject = req.body;
   fs.readFile('currentUsersV2.json', 'utf8', function(err, data){
       currentUsers = Object.values(Object.values(JSON.parse(data)));

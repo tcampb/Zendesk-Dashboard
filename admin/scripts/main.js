@@ -19,7 +19,10 @@ $(document).ready(function(){
         $.ajax({
             type: 'POST',
             url:  form.attr('action'),
-            data: form.serialize()
+            data: form.serialize(),
+            beforeSend: function(xhr){
+                xhr.setRequestHeader('TOKEN', localStorage.getItem("userId"));
+            }
         });
     });
 
