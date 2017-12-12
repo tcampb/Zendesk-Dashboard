@@ -1,16 +1,23 @@
-.blue {
-    background-color: #00A2FF;
-    height: 15vh;
-} 
 
+#header {
+    box-shadow: 0 7px 20px -5px rgba(0,0,0,0.2);
+    background-color: white;
+    height: 15vh;
+    /* border-width: 10px;
+    boder-style: solid;
+    border-left-color: blue;
+    border-top-color: blue;
+    border-bottom-color: lightblue;
+    border-right-color: lightblue; */
+}
 .white {
     background-color: white;
-    height: 70vh;
+    height: 80vh;
 }
 
 .brown {
     background-color: brown;
-    height: 15vh;
+    height: 5vh;
 }
 img {
     width: 120px;
