@@ -1,5 +1,5 @@
 .blue {
-    background-color: blue;
+    background-color: #00A2FF;
     height: 15vh;
 } 
 
@@ -11,4 +11,7 @@
 .brown {
     background-color: brown;
     height: 15vh;
+}
+img {
+    width: 120px;
 }
