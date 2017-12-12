@@ -11,7 +11,7 @@
     <title>Title</title>
 </head>
 <body>
-    <form action="/post" method="post" name="test123123123">
+    <form action="/api/goals" method="post" name="test123123123">
         <input type="number" value="test123" id="test" name="ticketNumber">Tickets Number
         <input type="radio" value="solved" name="ticketType">Solved
         <input type="radio" value="assigned" name="ticketType">Assigned
@@ -19,13 +19,13 @@
         <input type="submit" value="submit">
     </form>
 
-    <form action="/delete" method="post" name="Delete">
+    <form action="/api/delete" method="post" name="Delete">
         <select name="username" data-remove-user>
             <option value=" " selected hidden>Select</option>   
         <input type="submit" value="submit">
     </form>
 
-    <form action="/add" method="post" name="add user">
+    <form action="/api/add" method="post" name="add user">
         <input type="text" value="test123" name="username">Username
         <input type="text" value="test123" name="img">Image
         <input type="submit" value="submit">

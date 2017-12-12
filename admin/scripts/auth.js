@@ -11,11 +11,10 @@ function configureData(){
     };
     firebase.initializeApp(config);
     const email = $('[data-email]');
-    const password = $('[data-password');
+    const password = $('[data-password]');
     const button = $('[data-submit]');
 
-//Add sign-up event
-
+//Add sign-in event
 button.on('click', function(event){
     event.preventDefault();
     const emailValue = email.val();
@@ -24,11 +23,15 @@ button.on('click', function(event){
 
     promise = auth.signInWithEmailAndPassword(emailValue, passwordValue);
     promise.catch(function(error){
+        //The email address is badly formatted. 
+        //auth/user-not-found
+        //auth/wrong-password -> password reset email
         console.log(error.message);
+        console.log(error.code);
     });
     
 });
-
+//Return Admin console if authentication is successful
 firebase.auth().onAuthStateChanged(function(user){
     if (user){
         localStorage.setItem("userId", user.uid);
