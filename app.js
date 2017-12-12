@@ -27,7 +27,7 @@ app.use('/', express.static('public'));
 //Handle GET requests for userRecords
 app.post('/admin', parseURL, function(req, res){
     //Send admin page if authentication is successful
-    req.body && res.sendFile('/Users/tylercampbell/Desktop/node/admin/authentication/index.html');
+    req.body && res.sendFile('/Users/tylercampbell/Desktop/node/admin/admin.html');
 });
 
 
