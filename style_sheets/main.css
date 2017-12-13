@@ -31,3 +31,10 @@ img {
 .picture-size {
     width: 10vw;
 }
+.assigned {
+    background-color: #00A2FF;
+}
+
+.solved {
+    background-color: green;
+}
