@@ -15,10 +15,18 @@
     height: 80vh;
 }
 
-.brown {
-    background-color: brown;
+.blue {
+    background-color: #00A2FF;
     height: 5vh;
 }
 img {
     width: 120px;
+}
+
+#header img {
+    width: 400px;
+}
+
+.picture-size {
+    width: 10vw;
 }
