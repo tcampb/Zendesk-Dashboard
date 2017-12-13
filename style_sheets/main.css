@@ -20,7 +20,8 @@
     height: 5vh;
 }
 img {
-    width: 120px;
+    width: 7vw;
+    border-radius: 50%;
 }
 
 #header img {
