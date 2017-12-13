@@ -10,7 +10,7 @@ let currentUsers = {};
 let userRecords = {};
 const midnight = "00:00:00";
 const re = new RegExp('..:..:..');
-const token = '5n0SdgRt37gkNnVnf2tJf6c5gVc2';
+const token = 'P3dj82aXY1eqc7a24UBqzsP992a2';
 
 // Reset file at midnight of each day
 // setInterval(function(){

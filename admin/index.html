@@ -5,17 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
-    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="stylesheets/main2.css">
+    <title>Sign-in page</title>
 </head>
 <body>
-<form>
-    <input type="text" placeholder="Email" name="email" data-email>
-    <input type="password" placeholder="Password" name="password" data-password>
-    <button type="submit" data-submit>Create Account</button>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="header col-md-12">
+                <img src="stylesheets/calendly.png" alt="calendly_logo">
+            </div>
+        </div>
+            <h3>Login to your account</h3>
+            <div class="sign-in">
+                <form>
+                    <div class="email">
+                        <input type="email" name="email" placeholder="Email" data-email>
+                    </div>
+                    <div class="password">
+                        <input type="password" placeholder="Password" name="password" data-password>
+                    </div>
+                    
+                            <button type="submit" data-submit>Log in</button>
 
-</form>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
-<script src="scripts/auth.js"></script>
+                    </div>
+                </form>
+                <div class="reset">
+                    I forgot my password. Please <a data-password-reset>send me a recovery email</a>.
+                </div>
+
+            </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+    <script src="scripts/auth.js"></script>
 </body>
 </html>

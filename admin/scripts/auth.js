@@ -12,18 +12,19 @@ function configureData(){
     firebase.initializeApp(config);
     const email = $('[data-email]');
     const password = $('[data-password]');
-    const button = $('[data-submit]');
+    const submitButton = $('[data-submit]');
+    const passwordReset = $('[data-password-reset]');
 
-//Add sign-in event
-button.on('click', function(event){
+//Add sign-in eventListener
+submitButton.on('click', function(event){
     event.preventDefault();
-    const emailValue = email.val();
-    const passwordValue = password.val();
+    let emailValue = email.val();
+    let passwordValue = password.val();
     const auth = firebase.auth();
 
     promise = auth.signInWithEmailAndPassword(emailValue, passwordValue);
     promise.catch(function(error){
-        //The email address is badly formatted. 
+        // The email address is badly formatted. 
         //auth/user-not-found
         //auth/wrong-password -> password reset email
         console.log(error.message);
@@ -31,10 +32,35 @@ button.on('click', function(event){
     });
     
 });
+
+//Add password reset eventListener
+passwordReset.on('click', function(event){
+    event.preventDefault();
+    const auth = firebase.auth();
+    promise = auth.signInWithEmailAndPassword(emailValue, passwordValue);
+    promise.catch(function(error){
+        switch (error.code) {
+            case "auth/invalid-email":
+                break;
+            case "auth/user-not-found":
+                break;
+            default:
+                break;
+        }
+
+    })
+
+})
+
+
+
+
 //Return Admin console if authentication is successful
 firebase.auth().onAuthStateChanged(function(user){
     if (user){
         localStorage.setItem("userId", user.uid);
+        email.val("");
+        password.val("");
         $.ajax({
             type: 'POST',
             url: '/admin',

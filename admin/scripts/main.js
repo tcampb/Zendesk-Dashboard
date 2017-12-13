@@ -15,7 +15,6 @@ $(document).ready(function(){
     $('form').on('submit', function(event){
         event.preventDefault();
         var form = $(this);
-
         $.ajax({
             type: 'POST',
             url:  form.attr('action'),
