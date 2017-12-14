@@ -49,11 +49,10 @@ $(document).ready(function(){
         var data = JSON.parse(data);
         var objectArray = Object.values(data);
         var tbody = $('tbody');
-        var i = 0;
        
         $.each(objectArray, function(index, object){
             if ($(`[data-progress-assigned = "${object.name}"]`).length === 0) {
-                if (i % 2 === 0) {row = tbody.append($(`<tr data-${i}>`))}
+                if (index % 2 === 0) {row = tbody.append($(`<tr>`))}
                     tdImg = $('<td>').addClass('picture-size col-md-1').appendTo(row);
                     tdInfo = $('<td>').addClass('col-md-5').appendTo(row);
                     $('<img>').attr('src', object.imgSrc).appendTo(tdImg);
@@ -77,7 +76,6 @@ $(document).ready(function(){
                     "data-progress-solved": `${object.name}`
                     }).text("0").appendTo(progressBarSolvedDiv);
                     tdInfo.append(progressBarAssignedDiv, progressBarSolvedDiv);
-                    i++;
                 }
                 });
         }); 
