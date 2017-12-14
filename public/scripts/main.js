@@ -56,10 +56,13 @@ $(document).ready(function(){
             goalTime.setMinutes(goalMinutes);
             var currentTime = new Date();
             var currentTimeAMPM = formatAMPM(currentTime);
+            var ticketsRemaining = Number(data.ticketNumber) - Number(data.ticketsCompleted);
             $('[data-time]').text(currentTime.toDateString() + " " + currentTimeAMPM);
             $('[data-goals]').text(`Daily Goal: ${data.ticketNumber} ${data.ticketType} ticket's by ${formatAMPM(goalTime)}`);
+            $('[data-counter]').text(` ${ticketsRemaining}`);
             $('[data-div-goals]').removeClass('hidden');
             $('[data-time]').removeClass('hidden');
+            data.ticketType === "solved" ? $('[data-counter]').attr({"style": "color: #bed686"}) : $('[data-counter]').attr({"style": "color: #00A2FF"})
             if (data.ticketType === "solved" && ticketsSolved >= data.ticketNumber && currentTime <= goalTime) {
                 // CSS animations
             } else if (data.ticketType === "assigned" && ticketsAssigned >= data.ticketNumber && currentTime <= goalTime) {

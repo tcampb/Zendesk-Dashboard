@@ -12,7 +12,7 @@ html {
 }
 
 #header h2 {
-    margin-top: 8%;
+    margin-top: 5%;
     color: #646873;
 }
 
@@ -22,11 +22,11 @@ html {
     color: #ffd700;
 }
 
-#header h2::after {
+/* #header h2::after {
     content: attr(data-icon);
     font-family: "FontAwesome";
     color: #ffd700;
-}
+} */
 
 .time {
     text-align: right; 
@@ -45,6 +45,18 @@ html {
 .dashboard {
     min-height: 95vh;
 }
+
+.counter-div {
+    font-size: 20px;
+    padding-left: 12vw;
+}
+
+.counter-div::before{
+    content: attr(data-icon);
+    font-family: "FontAwesome";
+}
+
+
 .white {
     background-color: white;
     height: 80vh;
@@ -72,16 +84,8 @@ img {
     background-color: #00A2FF;
 }
 
-span .assigned {
-    color: #00A2FF;
-}
-
-span .assigned {
-    color: green;
-}
-
 .solved {
-    background-color: green;
+    background-color: #bed686;
 }
 
 .hide {
