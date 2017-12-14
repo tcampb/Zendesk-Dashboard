@@ -5,136 +5,199 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
-    <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link href="/open-iconic-master/font/css/open-iconic-bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" href="stylesheets/main.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="scripts/main.js"></script>
     <title>Calendly Dashboard</title>
 </head>
 <body>
-        <span class="oi oi-icon-name" title="icon name" aria-hidden="true"></span>
-    <div class="container">
-        
-        <div class="header">
-            <div class="logo">
-                <img width="115" height="35" src="https://assets.calendly.com/assets/landing/logo-996f6305b2f04bfd82fe7db6182f6af3ec1b3e1d92ce01879064d3364f311370.png" alt="Logo">
-            </div>
-            <div class="time"></div>
+<div class="container-fluid" data-wrapper>
+    <!-- First Row = Header -->
+    <div class="row" id="header">
+        <!-- Logo -->
+        <div class="col-md-4">
+            <img src="stylesheets/Calendly_logo.jpg" alt="" width=500px>
+        </div>
+        <!-- Daily Goal -->
+        <div class="col-md-4">
+          <h1>Daily Goal</h1>
+          <h3>55</h3>  
+        </div>
+        <!-- Date and Time -->
+        <div class="col-md-4">
+            <h1>11:00am</h1>
+            <h3>January 1, 2018</h3>            
+        </div>
+                                    
+    </div>
+     <!-- Second Row = Main-->
+    <div class="row white">
+        <!-- First Column Headshots -->
+        <!-- <div class="col-md-2  white main-section">
+        </div> -->
+        <!-- First Column Progress Bars -->
+        <!-- <div class="col-md-4  white main-section"> -->
+ 
+ 
+        <!-- Second Column Headshots -->
+        <!-- <div class="col-md-2  white main-section">
+                         -->
+        <!-- </div> -->
+        <!-- Second Column Progress Bars  -->
+        <!-- <div class="col-md-4 white main-section">
+            
+        </div> -->
+        <table class="table table-striped table-responsive">
+                <tbody>
+                  <!-- <tr>
+                    <td class="picture-size col-md-1">
+                        <img src="https://assets.calendly.com/assets/landing/team/large/portrait-hannah_t-8a9f651dabc8e487d97be80287f9f4e0302d24701540e70aed0d86def5832dfd.jpg" alt="">
+                    </td>
+                    <td>
+                        <h3>Anna</h3>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped active assigned" role="progressbar"
+                                aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%">40%
+                            </div>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped active solved" role="progressbar"
+                                aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%">40%
+                            </div>
+                        </div>
+                    </td>
+                    <td class="picture-size picture-size col-md-1">
+                        <img src="/https://assets.calendly.com/assets/landing/team/large/portrait-hannah_t-8a9f651dabc8e487d97be80287f9f4e0302d24701540e70aed0d86def5832dfd.jpg" alt="">
+                    </td>
+                    <td class="col-md-5">
+                        <h3>Joelle</h3>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped active assigned" role="progressbar"
+                                aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%">40%
+                            </div>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped active solved" role="progressbar"
+                                aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%">40%
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="picture-size col-md-1">
+                        <img src="https://assets.calendly.com/assets/landing/team/large/portrait-hannah_t-8a9f651dabc8e487d97be80287f9f4e0302d24701540e70aed0d86def5832dfd.jpg" alt=""></td>
+                    <td class="col-md-5">
+                        <h3>Brett</h3>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped active assignerd" role="progressbar"
+                                aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%">40%
+                            </div>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped active solved" role="progressbar"
+                                aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%">40%
+                            </div>
+                        </div>
+                    </td>
+                    <td class="picture-size col-md-1">
+                        <img src="https://assets.calendly.com/assets/landing/team/large/portrait-hannah_t-8a9f651dabc8e487d97be80287f9f4e0302d24701540e70aed0d86def5832dfd.jpg" alt=""></td>
+                    <td class="col-md-5">
+                        <h3>Tope</h3>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped active assigned" role="progressbar"
+                                aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%">40%
+                            </div>
+                        </div>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped active solved" role="progressbar"
+                                    aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%">40%
+                                </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="picture-size col-md-1">
+                        <img src="https://assets.calendly.com/assets/landing/team/large/portrait-hannah_t-8a9f651dabc8e487d97be80287f9f4e0302d24701540e70aed0d86def5832dfd.jpg" alt=""></td>
+                        <td class="col-md-5">
+                            <h3>Green Eyes</h3>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped active assigned" role="progressbar"
+                                    aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%">40%
+                                </div>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped active solved" role="progressbar"
+                                    aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%">40%
+                                </div>
+                            </div>
+                        </td>
+                        <td class="picture-size col-md-1">
+                            <img src="https://assets.calendly.com/assets/landing/team/large/portrait-hannah_t-8a9f651dabc8e487d97be80287f9f4e0302d24701540e70aed0d86def5832dfd.jpg" alt="">
+                        </td>
+                        <td class="col-md-5">
+                            <h3>Tyler</h3>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped active assigned" role="progressbar"
+                                    aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%">40%
+                                </div>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped active solved" role="progressbar"
+                                    aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%">40%
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="picture-size col-md-1">
+                            <img src="https://assets.calendly.com/assets/landing/team/large/portrait-hannah_t-8a9f651dabc8e487d97be80287f9f4e0302d24701540e70aed0d86def5832dfd.jpg" alt="">
+                        </td>
+                        <td class="col-md-5">
+                            <h3>Tiffany</h3>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped active assigned" role="progressbar"
+                                    aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%">40%
+                                </div>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped active solved" role="progressbar"
+                                    aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%">40%
+                                </div>
+                            </div>
+                        </td>
+                        <td class="picture-size col-md-1">
+                            <img src="https://assets.calendly.com/assets/landing/team/large/portrait-hannah_t-8a9f651dabc8e487d97be80287f9f4e0302d24701540e70aed0d86def5832dfd.jpg" alt=""></td>
+                        <td class="col-md-5">
+                            <h3>Amanda</h3>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped active assigned" role="progressbar"
+                                    aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%">40%
+                                </div>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped active solved" role="progressbar"
+                                    aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%">40%
+                                </div>
+                            </div>
+                        </td>
+                    </tr> -->
+                </tbody>
+            </table>
+    </div>
+    <!-- Third Row = Footer -->
+    <div class="row blue">
+        <div class="col-md-4">
+
+        </div>
+        <div class="col-md-4">
             
         </div>
-        <div class="main-content">
-            <div class="solved" data-solved>
-                <!-- <h1>Tickets Solved</h1> -->
-                <div class="users">
-                   <div class="user">
-                       <div class="user-picture">
-                            
-                        <img width="100" height="100" src="https://assets.calendly.com/assets/landing/team/large/portrait-hannah_t-8a9f651dabc8e487d97be80287f9f4e0302d24701540e70aed0d86def5832dfd.jpg">
-                        <span style="vertical-align: middle">Hannah Tatum:</span>
-                    </div>
-                       <div class="user-info" data-total="100" style="width: 100%; height: 100%">
-                            <div class="progress" style="width: 100%">
-                                    <div id="test" class="progress-bar-success" role="progressbar" aria-valuenow="45"
-                                    aria-valuemin="0" aria-valuemax="60" style="width:70%" data-progress-assigned="Hannah Tatum">
-                                      <span style="font-size: 10px; vertical-align: text-top" data-span-assigned="Hannah Tatum"></span>
-                                    </div>
-                                  </div>
-                                  <div class="progress" style="width: 100%">
-                                        <div class="progress-bar-info progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="45"
-                                        aria-valuemin="0" aria-valuemax="60" style="width:70%" data-progress-solved="Hannah Tatum">
-                                          <span style="font-size: 10px; vertical-align: text-top" data-span-solved="Hannah Tatum"></span>
-                                        </div>
-                                      </div>
-                                 
-                        <span data-user-solved="Hannah Tatum">0</span><span data-user-assigned="Hannah Tatum">0</span>
-                       </div>
-                       
-
-
-
-
-
-                    </div>
-                    <div class="user">
-                            <div class="user-picture">
-                                 <img width="100" height="100" src="https://assets.calendly.com/assets/landing/team/large/portrait-lisa-f569ac29c54da8c138e72825f61ce182fc3d832868432ecf2895235ab91d7c32.jpg">
-                            </div>
-                            <div class="user-info">
-                                Lisa Zhang: <span data-user="Lisa Zhang">0</span>
-                            </div>
-                         </div>
-                         <div class="user">
-                                <div class="user-picture">
-                                        <img width="100" height="100" src="https://assets.calendly.com/assets/landing/team/large/portrait-zachary-7dd9f29a506f58c7243cd75f2a5e8a4b5723d84a6a6dd30361bfcd049c9289c1.jpg">
-                                </div>
-                                <div class="user-info">
-                                    Zachary Smith: <span data-user="Zachary Smith">0</span><span data-user-assigned="Zachary Smith">0</span>
-                                </div>
-                             </div>
-                             <div class="user">
-                                    <div class="user-picture">
-                                         <img width="100" height="100" src="https://assets.calendly.com/assets/landing/team/large/portrait-joelle-f76d57eef7be5438d2d99294d2d33e4f520982810c7edfa103aa24507c141949.jpg">
-                                    </div>
-                                    <div class="user-info">
-                                        Joelle Waksman: <span data-user="Joelle Waksman">0</span>
-                                    </div>
-                                 </div>
-                                 <div class="user">
-                                        <div class="user-picture">
-                                             <img width="100" height="100" src="https://assets.calendly.com/assets/landing/team/large/portrait-tim-7695d05d6c51f1a0a46e17b5d75c51a2403205976ce7e58feb6829fd06dfa62b.jpg">
-                                        </div>
-                                        <div class="user-info">
-                                            Tim DaGraca: <span data-user="Tim DaGraca">0</span>
-                                        </div>
-                                     </div>
-                                     <div class="user">
-                                            <div class="user-picture">
-                                                 <img width="100" height="100" src="https://assets.calendly.com/assets/landing/team/large/portrait-katie-471f14d2e52348e952f22dcd1cd852fdc54ae7baacc33d0ea953ce8c22bdf6aa.jpg">
-                                            </div>
-                                            <div class="user-info">
-                                                Katie Owens: <span data-user="Katie Owens">0</span>
-                                            </div>
-                                         </div>
-                                         <div class="user">
-                                                <div class="user-picture">
-                                                     <img width="100" height="100" src="https://assets.calendly.com/assets/landing/team/large/portrait-jacob-63a2f1813e49b66ca6df6a43c05623bdddbde522cac169c251751f2fbd8b985e.jpg">
-                                                    
-                                                    </div>
-                                                <div class="user-info">
-                                                    Jacob Richard-Smith: <span data-user="Jacob Richard-Smith">0</span>
-                                                </div>
-                                             </div>
-                </div>
-            </div>
-            <div class="assigned">
-                <!-- <h1>Tickets Assigned</h1> -->
-                <div class="users">
-                    
-
-                </div>
-            </div>
-        </div>
-        <div class="footer">
-            Placeholder goals
+        <div class="col-md-4">
+                        
         </div>
     </div>
 
-    <script src="https://www.gstatic.com/firebasejs/4.8.0/firebase.js"></script>
-    <script>
-      // Initialize Firebase
-      var config = {
-        apiKey: "AIzaSyCamwmj4QqCWe9rykcuqQrzYYlAgkGx8yc",
-        authDomain: "zendesk-dashboard-f13ba.firebaseapp.com",
-        databaseURL: "https://zendesk-dashboard-f13ba.firebaseio.com",
-        projectId: "zendesk-dashboard-f13ba",
-        storageBucket: "zendesk-dashboard-f13ba.appspot.com",
-        messagingSenderId: "787748198564"
-      };
-      firebase.initializeApp(config);
-    </script>
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-     <script src="scripts/main.js"></script>
+</div>
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<script src="scripts/main.js"></script>
 </html>

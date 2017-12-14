@@ -18,8 +18,8 @@ function configureData(){
 //Add sign-in eventListener
 submitButton.on('click', function(event){
     event.preventDefault();
-    let emailValue = email.val();
-    let passwordValue = password.val();
+    const emailValue = email.val();
+    const passwordValue = password.val();
     const auth = firebase.auth();
 
     promise = auth.signInWithEmailAndPassword(emailValue, passwordValue);
@@ -36,21 +36,27 @@ submitButton.on('click', function(event){
 //Add password reset eventListener
 passwordReset.on('click', function(event){
     event.preventDefault();
+    const emailValue = email.val();
+    const passwordValue = password.val();
     const auth = firebase.auth();
     promise = auth.signInWithEmailAndPassword(emailValue, passwordValue);
     promise.catch(function(error){
+        console.log(error.code);
         switch (error.code) {
-            case "auth/invalid-email":
+            case "////auth/invalid-email":
                 break;
-            case "auth/user-not-found":
+            case "///////auth/user-not-found":
                 break;
             default:
-                break;
-        }
-
-    })
-
-})
+                auth.sendPasswordResetEmail(emailValue).then(function(){
+                    $('.reset').text(`Please check your ${email.val()} inbox for a reset password link.`);
+                }).catch(function(error){
+                    $('.reset').text('An unexpected error occurred. Please try again later.').addClass('error');
+                })
+            }
+        });
+    });
+    
 
 
 

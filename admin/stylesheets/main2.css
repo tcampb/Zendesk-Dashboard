@@ -9,6 +9,9 @@ body {
     background-color: #f7f7f7
 }
 
+.error {
+    color: #e41600;
+}
 
 .container-fluid {
     width: 500px;

@@ -28,9 +28,15 @@ app.use('/', express.static('public'));
 //Handle GET requests for userRecords
 app.post('/admin', parseURL, function(req, res){
     //Send admin page if authentication is successful
-    req.body && res.sendFile('/Users/tylercampbell/Desktop/node/admin/admin.html');
+    req.body && res.sendFile('/Users/tylercampbell/Desktop/calendly_dashboard_api/admin/admin.html');
 });
 
+app.get('/currentUsers', function(req, res){
+  fs.readFile('currentUsers.json', 'utf8', function(err, data){
+    data ? currentUsers = JSON.parse(data) : currentUsers = "";
+    res.send(JSON.stringify(currentUsers));
+    });
+});
 
 app.get('/userRecords', function(req, res){
   fs.readFile('userRecords.json', 'utf8', function(err, data){
@@ -41,7 +47,7 @@ app.get('/userRecords', function(req, res){
 
 app.get('/dailyGoal', function(req, res){
   fs.readFile('dailyGoal.json', 'utf8', function(err, data){
-    dailyGoal = JSON.parse(data);
+    data ? dailyGoal = JSON.parse(data) : dailyGoal = "";
     res.send(JSON.stringify(dailyGoal));
     });
 });
@@ -49,7 +55,7 @@ app.get('/dailyGoal', function(req, res){
 
 app.post('/admin', parseURL, function(req, res){
   //Send admin page if authentication is successful
-  req.body && res.sendFile('/Users/tylercampbell/Desktop/node/admin/admin.html');
+  req.body && res.sendFile('/Users/tylercampbell/Desktop/calendly_dashboard_api/admin/admin.html');
 });
 
 //Handle post request from Admin console (goals)
