@@ -27,8 +27,6 @@ function deleteUser(objectArray){
         }
     }
 
-
-
 }
 
 $(document).ready(function(){
@@ -100,6 +98,7 @@ $(document).ready(function(){
                     }).text("0").appendTo(progressBarSolvedDiv);
                     tdInfo.append(progressBarAssignedDiv, progressBarSolvedDiv);
                 }
+                //Call deleteUser function if user is removed 
                 deleteUser(objectArray);
                 });
         });

@@ -11,6 +11,37 @@ html {
     height: 15vh;
 }
 
+#header h2 {
+    margin-top: 8%;
+    color: #646873;
+}
+
+#header h2::before {
+    content: attr(data-icon);
+    font-family: "FontAwesome";
+    color: #ffd700;
+}
+
+#header h2::after {
+    content: attr(data-icon);
+    font-family: "FontAwesome";
+    color: #ffd700;
+}
+
+.time {
+    text-align: right; 
+    font-weight: 900;
+}
+
+.time::before{
+    content: attr(data-icon);
+    font-family: "FontAwesome";
+}
+
+.goalNumber {
+    font-weight: bold;
+}
+
 .dashboard {
     min-height: 95vh;
 }
@@ -23,6 +54,7 @@ html {
     background-color: #00A2FF;
     height: 5vh;
 }
+
 img {
     width: 7vw;
     border-radius: 50%;
@@ -40,6 +72,15 @@ img {
     background-color: #00A2FF;
 }
 
+span .assigned {
+    color: #00A2FF;
+}
+
+span .assigned {
+    color: green;
+}
+
 .solved {
     background-color: green;
 }
+
