@@ -48,19 +48,26 @@ $(document).ready(function(){
     });
     $.get('/dailyGoal', function(data){
         var data = JSON.parse(data);
-        var goalHour = data.time.slice(0, 2);
-        var goalMinutes = data.time.slice(3);
-        var goalTime = new Date();
-        goalTime.setHours(goalHour);
-        goalTime.setMinutes(goalMinutes);
-        var currentTime = new Date();
-        var currentTimeAMPM = formatAMPM(currentTime);
-        $('[data-time]').text(currentTime.toDateString() + " " + currentTimeAMPM);
-        $('[data-goals]').text(`Daily Goal: ${data.ticketNumber} ${data.ticketType} ticket's by ${formatAMPM(goalTime)}`);
-        if (data.ticketType === "solved" && ticketsSolved >= data.ticketNumber && currentTime <= goalTime) {
-            // CSS animations
-        } else if (data.ticketType === "assigned" && ticketsAssigned >= data.ticketNumber && currentTime <= goalTime) {
-            // CSS animations
+        if (data != "No data") {
+            var goalHour = data.time.slice(0, 2);
+            var goalMinutes = data.time.slice(3);
+            var goalTime = new Date();
+            goalTime.setHours(goalHour);
+            goalTime.setMinutes(goalMinutes);
+            var currentTime = new Date();
+            var currentTimeAMPM = formatAMPM(currentTime);
+            $('[data-time]').text(currentTime.toDateString() + " " + currentTimeAMPM);
+            $('[data-goals]').text(`Daily Goal: ${data.ticketNumber} ${data.ticketType} ticket's by ${formatAMPM(goalTime)}`);
+            $('[data-div-goals]').removeClass('hidden');
+            $('[data-time]').removeClass('hidden');
+            if (data.ticketType === "solved" && ticketsSolved >= data.ticketNumber && currentTime <= goalTime) {
+                // CSS animations
+            } else if (data.ticketType === "assigned" && ticketsAssigned >= data.ticketNumber && currentTime <= goalTime) {
+                // CSS animations
+            }
+        } else {
+        $('[data-div-goals]').addClass('hidden');
+        $('[data-time]').addClass('hidden');
         }
     })
 

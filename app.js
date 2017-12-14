@@ -47,7 +47,7 @@ app.get('/userRecords', function(req, res){
 
 app.get('/dailyGoal', function(req, res){
   fs.readFile('dailyGoal.json', 'utf8', function(err, data){
-    data ? dailyGoal = JSON.parse(data) : dailyGoal = "";
+    data ? dailyGoal = JSON.parse(data) : dailyGoal = "No data";
     res.send(JSON.stringify(dailyGoal));
     });
 });

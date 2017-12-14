@@ -84,3 +84,6 @@ span .assigned {
     background-color: green;
 }
 
+.hide {
+    display: hidden;
+}
