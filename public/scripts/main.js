@@ -10,6 +10,27 @@ function formatAMPM(currentTime){
     return formattedTime;
 }
 
+function deleteUser(objectArray){
+    var tdArray = $('[data-image]');
+    var nameArray  = [];
+    var userName;
+    
+    $.each(objectArray, function(index, object){
+        nameArray.push(object.name);
+    });
+
+    for (var i=0; i < tdArray.length; i++) {
+        userName = tdArray[i].getAttribute('data-image');
+        if (!nameArray.includes(userName)) {
+            $(`[data-image="${userName}"]`).remove();
+            $(`[data-info="${userName}"]`).remove();
+        }
+    }
+
+
+
+}
+
 $(document).ready(function(){
     setInterval(function(){
     var ticketsSolved = 0;
@@ -49,12 +70,14 @@ $(document).ready(function(){
         var data = JSON.parse(data);
         var objectArray = Object.values(data);
         var tbody = $('tbody');
-       
+        var $row;
         $.each(objectArray, function(index, object){
             if ($(`[data-progress-assigned = "${object.name}"]`).length === 0) {
-                if (index % 2 === 0) {row = tbody.append($(`<tr>`))}
-                    tdImg = $('<td>').addClass('picture-size col-md-1').appendTo(row);
-                    tdInfo = $('<td>').addClass('col-md-5').appendTo(row);
+                //Only add new row if 2 users have been added
+                if (index % 2 === 0) {$row = tbody.append($(`<tr>`))}
+                    tdImg = $('<td>').addClass('picture-size col-md-1').attr('data-image', object.name);
+                    tdInfo = $('<td>').addClass('col-md-5').attr('data-info', object.name);
+                    $('tbody tr:last').append(tdImg, tdInfo);
                     $('<img>').attr('src', object.imgSrc).appendTo(tdImg);
                     $(`<h3>${object.name}</h3>`).appendTo(tdInfo);
                     progressBarAssignedDiv = $('<div>').attr({'class': 'progress'});
@@ -77,7 +100,8 @@ $(document).ready(function(){
                     }).text("0").appendTo(progressBarSolvedDiv);
                     tdInfo.append(progressBarAssignedDiv, progressBarSolvedDiv);
                 }
+                deleteUser(objectArray);
                 });
-        }); 
+        });
     }, 1000);
 });
