@@ -1,91 +1,89 @@
 html {
     box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-    font-family: "Proxima Nova Soft", serif;
 }
 *, *:before, *:after {
     box-sizing: inherit;
 }
 
-.container {
-    display: grid;
-    height: 1000px;
-    width: 100%;
-    grid-template-rows: 10% 5fr 1fr;
-    grid-template-columns: 1fr 1fr;  
-}
-
-.header {
-    display: grid;
-    grid-row: 1 / 2;
-    grid-column: 1 / 4;
+#header {
     box-shadow: 0 7px 20px -5px rgba(0,0,0,0.2);
+    background-color: white;
+    height: 15vh;
 }
 
-.main-content {
-    display: grid;
-    grid-column: 1 / 4;
-    /* grid-template-columns: repeat(2, 1fr); */
-    text-align: center;
-    color: #666A72;
+#header h2 {
+    margin-top: 8%;
+    color: #646873;
 }
 
-.solved {
-    display: grid;
-    grid-template-rows: 1fr 10fr;
+#header h2::before {
+    content: attr(data-icon);
+    font-family: "FontAwesome";
+    color: #ffd700;
 }
 
-.users {
-    height: 1000px;
-    display: grid;
-    align-content: space-between;
+#header h2::after {
+    content: attr(data-icon);
+    font-family: "FontAwesome";
+    color: #ffd700;
 }
 
-.user {
-    display: grid;
-    width: 100%;
-    grid-template-columns: 1fr 2fr;
-    justify-items: start;
-    align-items: center;
-    font-size: 30px;
-    font-weight: 600;
+.time {
+    text-align: right; 
+    font-weight: 900;
 }
 
-.user-picture {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    justify-self: start;
-    grid-column: 1 / 2;
-    width: 100%;
+.time::before{
+    content: attr(data-icon);
+    font-family: "FontAwesome";
 }
 
-
-
-.user-name {
-    justify-self: end;
-    display: grid;
+.goalNumber {
+    font-weight: bold;
 }
 
-.user-picture img {
+.dashboard {
+    min-height: 95vh;
+}
+.white {
+    background-color: white;
+    height: 80vh;
+}
+
+.blue {
+    background-color: #00A2FF;
+    height: 5vh;
+}
+
+img {
+    width: 7vw;
     border-radius: 50%;
 }
 
-.user-info {
-    display: block;
-
-    /* grid-column: 2 / 3;
-    width: 100%;
-    justify-content: start; */
+#header img {
+    width: 400px;
+    margin-top: 4%;
 }
 
-
-.footer {
-    grid-row: 3 / 4;
-    grid-column: 1 / 4;
-    background-color: #f4faff;
+.picture-size {
+    width: 10vw;
+}
+.assigned {
+    background-color: #00A2FF;
 }
 
-.progress-bar-success {
-    color: white;
+span .assigned {
+    color: #00A2FF;
+}
+
+span .assigned {
+    color: green;
+}
+
+.solved {
+    background-color: green;
+}
+
+.hide {
+    display: hidden;
 }
