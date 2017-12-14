@@ -51,36 +51,33 @@ $(document).ready(function(){
         var objectArray = Object.values(data);
         var tbody = $('tbody');
         var i = 0;
-        console.log(objectArray);
-        console.log(($('[data-progress-assigned]').length));
-        if (($('[data-progress-assigned]').length) != 4) {
+        if (($('[data-progress-assigned]').length) != objectArray.length) {
         $.each(objectArray, function(index, object){
             if (i % 2 === 0) {row = tbody.append($('<tr>'))}
-                // for (var j=0; j<2; j++) {
-                    tdImg = $('<td>').addClass('picture-size col-md-1').appendTo(row);
-                    tdInfo = $('<td>').appendTo(row);
-                    $('<img>').attr('src', object.imgSrc).appendTo(tdImg);
-                    $(`<h3>${object.name}</h3>`).appendTo(tdInfo);
-                    progressBarAssignedDiv = $('<div>').attr({'class': 'progress'});
-                    $('<div>').attr({'class': `progress-bar progress-bar-striped active assigned`,
-                                     'role': "progressbar",
-                                     "aria-valuenow": `0`,
-                                     "aria-valuemin": "0",
-                                     "aria-valuemax": "60",
-                                     "style": `width: 3%`,
-                                     "data-progress-assigned": `${object.name}`
-                                    }).text("0").appendTo(progressBarAssignedDiv);
-                    progressBarSolvedDiv = $('<div>').attr({'class': 'progress'});
-                    $('<div>').attr({'class': `progress-bar progress-bar-striped active solved`,
-                    'role': "progressbar",
-                    "aria-valuenow": `0`,
-                    "aria-valuemin": "0",
-                    "aria-valuemax": "60",
-                    "style": `width: 3%`,
-                    "data-progress-solved": `${object.name}`
-                    }).appendTo(progressBarSolvedDiv);
-                    tdInfo.append(progressBarAssignedDiv, progressBarSolvedDiv);
-                    // }
+                tdImg = $('<td>').addClass('picture-size col-md-1').appendTo(row);
+                tdInfo = $('<td>').appendTo(row);
+                $('<img>').attr('src', object.imgSrc).appendTo(tdImg);
+                $(`<h3>${object.name}</h3>`).appendTo(tdInfo);
+                progressBarAssignedDiv = $('<div>').attr({'class': 'progress'});
+                $('<div>').attr({'class': `progress-bar progress-bar-striped active assigned`,
+                                    'role': "progressbar",
+                                    "aria-valuenow": `0`,
+                                    "aria-valuemin": "0",
+                                    "aria-valuemax": "60",
+                                    "style": `width: 3%`,
+                                    "data-progress-assigned": `${object.name}`
+                                }).text("0").appendTo(progressBarAssignedDiv);
+                progressBarSolvedDiv = $('<div>').attr({'class': 'progress'});
+                $('<div>').attr({'class': `progress-bar progress-bar-striped active solved`,
+                'role': "progressbar",
+                "aria-valuenow": `0`,
+                "aria-valuemin": "0",
+                "aria-valuemax": "60",
+                "style": `width: 3%`,
+                "data-progress-solved": `${object.name}`
+                }).appendTo(progressBarSolvedDiv);
+                tdInfo.append(progressBarAssignedDiv, progressBarSolvedDiv);
+                i++;
                 });
             }
         }); 

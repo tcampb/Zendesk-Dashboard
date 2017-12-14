@@ -10,6 +10,10 @@ html {
     background-color: white;
     height: 15vh;
 }
+
+.dashboard {
+    min-height: 95vh;
+}
 .white {
     background-color: white;
     height: 80vh;
