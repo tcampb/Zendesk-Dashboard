@@ -22,9 +22,8 @@ $(document).ready(function(){
                 var maxValue = $(`[data-progress-${userAction}="${userName}"]`).attr('aria-valuemax');
                 $(`[data-progress-${userAction}="${userName}"`).attr({
                                                                   "aria-valuenow": `${value}`,
-                                                                  "style": `width: ${(value / maxValue) * 100}%`
-                                                                 }).text(`${value}`);;
-                // $(`[data-span-${userAction}="${userName}"`).text(`${value}`);                                                         
+                                                                  "style": `width: ${(value / maxValue) * 100}%; min-width: 3%;`
+                                                                 }).text(`${value}`);;                                                       
             });
         });
     });
@@ -51,35 +50,36 @@ $(document).ready(function(){
         var objectArray = Object.values(data);
         var tbody = $('tbody');
         var i = 0;
-        if (($('[data-progress-assigned]').length) != objectArray.length) {
+       
         $.each(objectArray, function(index, object){
-            if (i % 2 === 0) {row = tbody.append($('<tr>'))}
-                tdImg = $('<td>').addClass('picture-size col-md-1').appendTo(row);
-                tdInfo = $('<td>').appendTo(row);
-                $('<img>').attr('src', object.imgSrc).appendTo(tdImg);
-                $(`<h3>${object.name}</h3>`).appendTo(tdInfo);
-                progressBarAssignedDiv = $('<div>').attr({'class': 'progress'});
-                $('<div>').attr({'class': `progress-bar progress-bar-striped active assigned`,
-                                    'role': "progressbar",
-                                    "aria-valuenow": `0`,
-                                    "aria-valuemin": "0",
-                                    "aria-valuemax": "60",
-                                    "style": `width: 3%`,
-                                    "data-progress-assigned": `${object.name}`
-                                }).text("0").appendTo(progressBarAssignedDiv);
-                progressBarSolvedDiv = $('<div>').attr({'class': 'progress'});
-                $('<div>').attr({'class': `progress-bar progress-bar-striped active solved`,
-                'role': "progressbar",
-                "aria-valuenow": `0`,
-                "aria-valuemin": "0",
-                "aria-valuemax": "60",
-                "style": `width: 3%`,
-                "data-progress-solved": `${object.name}`
-                }).appendTo(progressBarSolvedDiv);
-                tdInfo.append(progressBarAssignedDiv, progressBarSolvedDiv);
-                i++;
+            if ($(`[data-progress-assigned = "${object.name}"]`).length === 0) {
+                if (i % 2 === 0) {row = tbody.append($(`<tr data-${i}>`))}
+                    tdImg = $('<td>').addClass('picture-size col-md-1').appendTo(row);
+                    tdInfo = $('<td>').addClass('col-md-5').appendTo(row);
+                    $('<img>').attr('src', object.imgSrc).appendTo(tdImg);
+                    $(`<h3>${object.name}</h3>`).appendTo(tdInfo);
+                    progressBarAssignedDiv = $('<div>').attr({'class': 'progress'});
+                    $('<div>').attr({'class': `progress-bar progress-bar-striped active assigned`,
+                                        'role': "progressbar",
+                                        "aria-valuenow": `0`,
+                                        "aria-valuemin": "0",
+                                        "aria-valuemax": "60",
+                                        "style": `width: 3%`,
+                                        "data-progress-assigned": `${object.name}`
+                                    }).text("0").appendTo(progressBarAssignedDiv);
+                    progressBarSolvedDiv = $('<div>').attr({'class': 'progress'});
+                    $('<div>').attr({'class': `progress-bar progress-bar-striped active solved`,
+                    'role': "progressbar",
+                    "aria-valuenow": `0`,
+                    "aria-valuemin": "0",
+                    "aria-valuemax": "60",
+                    "style": `width: 3%`,
+                    "data-progress-solved": `${object.name}`
+                    }).text("0").appendTo(progressBarSolvedDiv);
+                    tdInfo.append(progressBarAssignedDiv, progressBarSolvedDiv);
+                    i++;
+                }
                 });
-            }
         }); 
     }, 1000);
 });
