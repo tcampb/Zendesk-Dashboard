@@ -1,0 +1,94 @@
+/* #header {
+    height: 20vh;
+} */
+
+#main {
+    height: 75vh;
+}
+
+#activities-btn {
+    margin-top: 50px;
+    margin-left: 50px;
+    font-size: 20px;
+}
+canvas {
+    width:70vw;
+}
+.barChart1 {
+    width: 50vw;
+}
+
+h1 {
+    font-size: 2em;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+
+h3 {
+    font-size: 1.0em;
+}
+
+.easter-egg {
+    display: none;
+
+}
+/* Submit button with animation */
+.button {
+    background: #00A2FF;
+    height: 80px;
+    width: 200px;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .text {
+    font: bold 1.25rem/1 poppins;
+    color:n #FFFFFF;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-52%);
+    left: 0;
+    right: 0;
+  }
+  
+  .progress-bar {
+    position: absolute;
+    height: 20px;
+    width: 0;
+    right: 0;
+    top: 50%;
+    left: 50%;
+    border-radius: 200px;
+    transform: translateY(-50%) translateX(-50%);
+    background: lighten(#2B2D2F, 15%);
+  }
+  
+  svg {
+    width: 30px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    left: 50%;
+    right: 0;
+  }
+  
+  .check {
+    fill: none;
+    stroke: #FFFFFF;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  /* End of Submit button with animation */

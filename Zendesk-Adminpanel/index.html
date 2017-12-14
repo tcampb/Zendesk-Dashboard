@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css"> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:600" rel="stylesheet">
+    <link rel="stylesheet" href="style_sheets/main.css">
+    <title>Calendly Admin Panel</title>
+</head>
+<body>
+    <!-- First row of header -->
+    <div class="container-fluid" data-wrapper>
+        <div class="row" id="header">
+            <!-- Logo -->
+            <div class="col-xs-8 col-sm-6 col-md-6">
+                <div>
+                    <img src="/Users/richoswald/DigitalCrafts-11-2017/front_end_project/styles/photos/Calendly_logo.jpg" alt="Calendly" width=100%>
+                    
+                </div>
+            </div>
+            <!-- User add/remove button -->
+            <div class="col-xs-4 col-sm-4 col-md-3">
+                <div class="btn-group dropdown" >
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="activities-btn">
+                        Activities <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Add User</a></li>
+                        <li><a href="#">Remove User</a></li>
+                        <li><a href="#">Set Goal</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Log Out</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Date and Time -->
+            <div class="col-xs-6 col-sm-12 col-md-3">
+                <h2>January 1, 2018</h2>            
+                <h1>11:00am</h1>
+            </div>
+        </div>
+    </div>        
+    <!-- Second row of header -->
+    <div class="container-fluid" data-wrapper>
+    <!-- Daily Goal -->
+        <div class="col-xs-6 col-sm-6 col-md-4">
+            <h1>Admin Panel</h1>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-4">
+             <h1>Hello, Joelle!</h1>  
+        </div>
+    </div>
+        <!-- Main section -->
+        <div class="row" id="main">
+        
+            <div class="col-xs-2 col-sm-2 col-md-2">
+            </div>
+                <!-- Bar chart -->
+            <div class="col-xs-8 col-sm-8 col-md-8">
+                <div>
+                <canvas id="myChart"></canvas>
+                </div>
+            </div>
+    
+             
+        </div>
+        
+        <div class="col-xs-1 col-sm-1 col-md-1 easter-egg">
+            <a href=""><img src="/Users/richoswald/DigitalCrafts-11-2017/front_end_project_Tyler/Zendesk-Dashboard/style_sheets/photos/tyler.jpg" alt="" width="50px"></a>
+        </div>
+
+
+<!-- Submit Button with annimation -->
+
+    <div class="button">
+            <div class="text">Submit</div>
+          </div>
+          <div class="progress-bar"></div>
+          <svg x="0px" y="0px"
+             viewBox="0 0 25 30" style="enable-background:new 0 0 25 30;">
+            <path class="check" class="st0" d="M2,19.2C5.9,23.6,9.4,28,9.4,28L23,2"/>
+          </svg>
+    
+</body>
+<!-- End of Submit Button with animation -->
+<script src="/Users/richoswald/DigitalCrafts-11-2017/front_end_project_Tyler/Zendesk-Adminpanel/scripts/anime-master/anime.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="scripts/submit_button.js"></script>
+<script src="scripts/main.js"></script>
+</html>
