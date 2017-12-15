@@ -52,7 +52,7 @@ h2 {
 }
 
 /* Media query for phone */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 600px) {
     [data-time] {
         display: none;
     } 
@@ -60,4 +60,26 @@ h2 {
         width: 250px;
     }
   }
+  /* Media query for tablet */
+  @media screen and (max-width: 768px) {
+    [data-logo] {
+        width: 400px;
+    }
+    h2 {
+        font-size: 22px;
+    }
+    
+    } 
+
+  /* Media query for tablet landscape */
+  @media screen and (max-width: 1024px) {
+    [data-logo] {
+        width: 450px;
+    }
+    h2 {
+        font-size: 30px;
+    }
+  
+  } 
+
   
