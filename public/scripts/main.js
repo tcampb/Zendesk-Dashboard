@@ -6,7 +6,7 @@ function formatAMPM(currentTime){
     if (minutes < 10) {minutes = `0${minutes}`};
     if (hours > 12) {hours = hours - 12};
     if (hours === 0) {hours = 12};
-    var formattedTime = `${hours}:${minutes} ${meridiem}`;
+    var formattedTime = `${hours}:${minutes}${meridiem}`;
     return formattedTime;
 }
 
@@ -56,10 +56,14 @@ $(document).ready(function(){
             goalTime.setMinutes(goalMinutes);
             var currentTime = new Date();
             var currentTimeAMPM = formatAMPM(currentTime);
-            $('[data-time]').text(currentTime.toDateString() + " " + currentTimeAMPM);
-            $('[data-goals]').text(`Daily Goal: ${data.ticketNumber} ${data.ticketType} ticket's by ${formatAMPM(goalTime)}`);
+            var ticketsRemaining = Number(data.ticketNumber) - Number(data.ticketsCompleted);
+            $('[data-time]').text(" " + currentTime.toDateString() + " " + currentTimeAMPM);
+            $('[data-goals]').text(` ${data.ticketNumber} Tickets`);
+            $('[data-goal-time]').text(` ${formatAMPM(goalTime)}`);
+            $('[data-counter]').text(` ${ticketsRemaining}`);
             $('[data-div-goals]').removeClass('hidden');
             $('[data-time]').removeClass('hidden');
+            data.ticketType === "solved" ? $('[data-counter]').attr({"style": "color: #bed686"}) : $('[data-counter]').attr({"style": "color: #00A2FF"})
             if (data.ticketType === "solved" && ticketsSolved >= data.ticketNumber && currentTime <= goalTime) {
                 // CSS animations
             } else if (data.ticketType === "assigned" && ticketsAssigned >= data.ticketNumber && currentTime <= goalTime) {
@@ -80,8 +84,8 @@ $(document).ready(function(){
             if ($(`[data-progress-assigned = "${object.name}"]`).length === 0) {
                 //Only add new row if 2 users have been added
                 if (index % 2 === 0) {$row = tbody.append($(`<tr>`))}
-                    tdImg = $('<td>').addClass('picture-size col-md-1').attr('data-image', object.name);
-                    tdInfo = $('<td>').addClass('col-md-5').attr('data-info', object.name);
+                    tdImg = $('<td>').addClass('picture-size col-md-1').attr({'data-image': object.name, 'id': 'no-table'});
+                    tdInfo = $('<td>').addClass('col-md-5').attr({'data-info': object.name, 'id': 'table-mobile'});
                     $('tbody tr:last').append(tdImg, tdInfo);
                     $('<img>').attr('src', object.imgSrc).appendTo(tdImg);
                     $(`<h3>${object.name}</h3>`).appendTo(tdInfo);

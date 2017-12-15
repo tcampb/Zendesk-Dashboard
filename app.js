@@ -145,7 +145,7 @@ app.post('/api/post', parseJSON, function(req, res){
         currentUserNames.push(user.name);
       });
       
-  
+      
       fs.readFile('userRecords.json', 'utf8', function(err, data){
         //Ensure that user in POST request is listed in the currentUsers object
         var userAction = Object.keys(userObject)[0];
@@ -153,11 +153,18 @@ app.post('/api/post', parseJSON, function(req, res){
         userRecords = JSON.parse(data);
         currentUserNames.includes(userName) ? userRecords[userAction][userName] += 1 : console.log("User not found");
         fs.writeFile('userRecords.json', JSON.stringify(userRecords));
-        res.status(201).send("Success");
-     });
-  }); 
-  
-})
+        
+        fs.readFile('dailyGoal.json', 'utf8', function(err, data){
+            var data = JSON.parse(data);
+            if (userAction === data.ticketType) {
+              data.ticketsCompleted = Number(data.ticketsCompleted) + 1;
+              fs.writeFile('dailyGoal.json', JSON.stringify(data));
+              res.status(201).send("Success");
+            }
+          }) 
+        })
+      })
+    })
 
 //Listen to port 
 app.listen(80);
