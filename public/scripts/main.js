@@ -6,7 +6,7 @@ function formatAMPM(currentTime){
     if (minutes < 10) {minutes = `0${minutes}`};
     if (hours > 12) {hours = hours - 12};
     if (hours === 0) {hours = 12};
-    var formattedTime = `${hours}:${minutes} ${meridiem}`;
+    var formattedTime = `${hours}:${minutes}${meridiem}`;
     return formattedTime;
 }
 
@@ -57,8 +57,9 @@ $(document).ready(function(){
             var currentTime = new Date();
             var currentTimeAMPM = formatAMPM(currentTime);
             var ticketsRemaining = Number(data.ticketNumber) - Number(data.ticketsCompleted);
-            $('[data-time]').text(currentTime.toDateString() + " " + currentTimeAMPM);
-            $('[data-goals]').text(`${data.ticketNumber} ticket's by ${formatAMPM(goalTime)}`);
+            $('[data-time]').text(" " + currentTime.toDateString() + " " + currentTimeAMPM);
+            $('[data-goals]').text(` ${data.ticketNumber} Tickets`);
+            $('[data-goal-time]').text(` ${formatAMPM(goalTime)}`);
             $('[data-counter]').text(` ${ticketsRemaining}`);
             $('[data-div-goals]').removeClass('hidden');
             $('[data-time]').removeClass('hidden');

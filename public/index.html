@@ -15,19 +15,21 @@
     <!-- First Row = Header -->
     <div class="row" id="header">
         <!-- Logo -->
-        <div class="col-md-4">
-            <img src="stylesheets/Calendly_logo.jpg" alt="" width=500px>
+        <div class="col-md-2 logo">
+            <img src="stylesheets/Calendly_logo.png" alt="" width=500px>
         </div>
         <!-- Daily Goal -->
-        <div class="col-md-6" data-div-goals>
-                <h2 class="goals" data-icon='&#xf091;' data-goals></h2>
+        <div class="col-md-10 goals" data-div-goals>
+                <!-- <h2 class="goals" data-icon='&#xf091;' data-goals></h2> -->
+                <div class="goal" data-icon='&#xf091;' data-goals></div>
+                <div class="time" data-icon='&#xf017;' data-goal-time></div>
                 <div class="counter-div" data-icon='&#xf003;'>
                     Tickets Remaining:<span class="counter" data-counter></span>
             </div>
         </div>
         <!-- Date and Time -->
-        <div class="col-md-2 time" data-icon='&#xf017;' data-time>         
-        </div>
+        <!-- <div class="col-md-2 time" data-icon='&#xf017;' data-time>         
+        </div> -->
                                   
     </div>
      <!-- Second Row = Main-->
@@ -37,18 +39,8 @@
             </table>
     </div>
     <!-- Third Row = Footer -->
-    <div class="row blue" id="footer">
-        <div class="col-md-4">
-
-        </div>
-        <div class="col-md-4">
-            
-        </div>
-        <div class="col-md-4">
-                        
-        </div>
-    </div>
-
+    <div class="blue footer">
+        <h4 class="col-md-12" id="currentTime" data-icon='&#xf073;' data-time></h4>
 </div>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
