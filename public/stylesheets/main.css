@@ -22,17 +22,38 @@ html, body {
     color: #646873;
 }
 
-#header h2::before {
-    content: attr(data-icon);
-    font-family: "FontAwesome";
-    color: #ffd700;
+.sheep img {
+    display: block;
+    position: absolute;
+    right: 10px;
 }
 
-/* #header h2::after {
-    content: attr(data-icon);
-    font-family: "FontAwesome";
-    color: #ffd700;
-} */
+#test {
+    /* position: absolute; */
+    /* animation-name: example;
+    animation-duration: 5s; */
+
+    transform: translate(-27vw);
+    transition: transform 10s;
+
+}
+
+#goalMet {
+    animation: rainbow 18s ease infinite;
+}
+
+@keyframes rainbow { 
+    0%  {background-color: #2b1de8}
+    11% {background-color: #e81d1d}
+    22% {background-color: #e8b71d}
+    33% {background-color: #e3e81d}
+    44% {background-color: #1de840}
+    55% {background-color: #1ddde8}
+    66% {background-color: #2b1de8}
+    77% {background-color: #dd00f3}
+    99% {background-color: #2b1de8}
+    100% {background-color: #2b1de8}
+}
 
 .goals {
     display: flex;
@@ -92,6 +113,12 @@ html, body {
     bottom: 0;
     right: 0;
     left: 0;
+}
+
+td h3 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 #currentTime::before {

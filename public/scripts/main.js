@@ -29,6 +29,22 @@ function deleteUser(objectArray){
 
 }
 
+function goalValidation(userName, value){
+    $span = $(`[data-name="${userName}"`);
+    if (value >= 45 && $span) {
+        $(`[data-sheep-animation="${userName}"`).removeClass('hide');
+        $(`[data-progress-assigned="${userName}"]`).attr('id', 'goalMet');
+        $h3Width = Number($span.parent().css('width').replace('px', ''));
+        $spanWidth = Number($span.css('width').replace('px', ''));
+        animationWidth = '-' + String((($h3Width - $spanWidth) - 50)) + 'px';
+        $(`[data-sheep-animation="${userName}"`).attr({'style': `transform: translate(${animationWidth}); transition: transform 10s;`})                                                          
+    } else {
+        $(`[data-sheep-animation="${userName}"`).addClass('hide');
+        $(`[data-progress-assigned="${userName}"]`).removeAttr('id');
+    }
+}
+
+
 $(document).ready(function(){
     setInterval(function(){
     var ticketsSolved = 0;
@@ -37,6 +53,7 @@ $(document).ready(function(){
     $.get('/userRecords', function(data){
         $.each(JSON.parse(data), function(userAction, userObject){
             $.each(userObject, function(userName, value){
+                if (userAction === "assigned") {goalValidation(userName, value)}
                 userAction === "solved" ? ticketsSolved += value : ticketsAssigned += value;
                 var maxValue = $(`[data-progress-${userAction}="${userName}"]`).attr('aria-valuemax');
                 $(`[data-progress-${userAction}="${userName}"`).attr({
@@ -63,7 +80,12 @@ $(document).ready(function(){
             $('[data-counter]').text(` ${ticketsRemaining}`);
             $('[data-div-goals]').removeClass('hidden');
             $('[data-time]').removeClass('hidden');
+
+
+
+            //Change tickets remaining font color to color associated with the goal ticket type
             data.ticketType === "solved" ? $('[data-counter]').attr({"style": "color: #bed686"}) : $('[data-counter]').attr({"style": "color: #00A2FF"})
+            //Check if group goal is completed
             if (data.ticketType === "solved" && ticketsSolved >= data.ticketNumber && currentTime <= goalTime) {
                 // CSS animations
             } else if (data.ticketType === "assigned" && ticketsAssigned >= data.ticketNumber && currentTime <= goalTime) {
@@ -88,7 +110,7 @@ $(document).ready(function(){
                     tdInfo = $('<td>').addClass('col-md-5').attr({'data-info': object.name, 'id': 'table-mobile'});
                     $('tbody tr:last').append(tdImg, tdInfo);
                     $('<img>').attr('src', object.imgSrc).appendTo(tdImg);
-                    $(`<h3>${object.name}</h3>`).appendTo(tdInfo);
+                    $(`<h3><span data-name="${object.name}">${object.name}</span><img src="stylesheets/sheepy.gif" data-sheep-animation="${object.name}" class="hide"></h3>`).appendTo(tdInfo);
                     progressBarAssignedDiv = $('<div>').attr({'class': 'progress'});
                     $('<div>').attr({'class': `progress-bar progress-bar-striped active assigned`,
                                         'role': "progressbar",
