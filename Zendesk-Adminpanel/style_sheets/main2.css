@@ -17,13 +17,21 @@
     justify-self: start;
     align-self: center;
 }
+[data-trophy] {
+    color: gold;
+}
+
 [data-time] {
     grid-column: 1/11;
     grid-row: 7/8;
     justify-self: center;
 
 }
-
+[data-greeting] {
+    grid-column: 5/9;
+    grid-row: 2;
+    align-self: top;
+}
 .dropdown-menu {
     position: relative;
     top: 0px;
@@ -31,7 +39,7 @@
 
 
 [data-dropdown] {
-    grid-column: 1/8;
+    grid-column: 2/8;
     grid-row: 2;
     align-self: top;
     justify-self: start;
@@ -50,20 +58,51 @@ canvas {
 h2 {
     font-size: 14px;
 }
-
-/* Media query for phone */
-@media screen and (max-width: 600px) {
+/* Media query for phone portrait */
+@media screen and (max-width: 768px) and (orientation: portrait) {
     [data-time] {
         display: none;
     } 
+    [data-chart] {
+        grid-column: 2/10;
+        grid-row: 3/6;
+        margin: 10px;
+    }    
     [data-logo] {
         width: 250px;
     }
+    h3 {
+        font-size: 12px;
+    }
   }
-  /* Media query for tablet */
-  @media screen and (max-width: 768px) {
+/* Media query for phone landscape */
+@media screen and (max-width: 768px) and (orientation: landscape) {
+    [data-time] {
+        display: none;
+    } 
+    [data-chart] {
+        grid-column: 4/10;
+        grid-row: 3/5;
+        margin: 10px;
+        start-at-zero: true;
+    }    
+    [data-logo] {
+        width: 250px;
+    }
+    [data-dropdown] {
+        grid-column: 2/6;
+    }
+    h3 {
+        font-size: 12px;
+    }
+  }
+  /* Media query for tablet: portrait */
+  @media screen and (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
     [data-logo] {
         width: 400px;
+    }
+    [data-dropdown] {
+        grid-column: 2/5;
     }
     h2 {
         font-size: 22px;
@@ -71,15 +110,39 @@ h2 {
     
     } 
 
-  /* Media query for tablet landscape */
-  @media screen and (max-width: 1024px) {
+  /* Media query for tablet: landscape */
+  @media screen and (min-width: 1025px) and (max-width:1200px) and (orientation: landscape) {
     [data-logo] {
-        width: 450px;
+        width: 400px;
     }
     h2 {
         font-size: 30px;
     }
-  
+    [data-chart] {
+        font-size: 28px;
+    }
   } 
-
-  
+/* Media query for laptop and desktop */
+@media screen and (min-width: 1200px) {
+    [data-logo] {
+        width: 400px;
+    }
+    h2 {
+        font-size: 30px;
+    }
+    [data-chart] {
+        font-size: 28px;
+        grid-row: 3/6;
+        grid-column: 3/9;
+    }
+  } 
+  @media screen and (min-width: 1200px) {
+    [data-time] {
+        grid-row: 1;
+        grid-column: 6/8;
+        align-self: center;
+    }
+    [data-logo] {
+        grid-column: 2/5;
+    }
+}
