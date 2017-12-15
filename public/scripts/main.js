@@ -58,7 +58,7 @@ $(document).ready(function(){
             var currentTimeAMPM = formatAMPM(currentTime);
             var ticketsRemaining = Number(data.ticketNumber) - Number(data.ticketsCompleted);
             $('[data-time]').text(currentTime.toDateString() + " " + currentTimeAMPM);
-            $('[data-goals]').text(`Daily Goal: ${data.ticketNumber} ${data.ticketType} ticket's by ${formatAMPM(goalTime)}`);
+            $('[data-goals]').text(`${data.ticketNumber} ticket's by ${formatAMPM(goalTime)}`);
             $('[data-counter]').text(` ${ticketsRemaining}`);
             $('[data-div-goals]').removeClass('hidden');
             $('[data-time]').removeClass('hidden');
@@ -83,8 +83,8 @@ $(document).ready(function(){
             if ($(`[data-progress-assigned = "${object.name}"]`).length === 0) {
                 //Only add new row if 2 users have been added
                 if (index % 2 === 0) {$row = tbody.append($(`<tr>`))}
-                    tdImg = $('<td>').addClass('picture-size col-md-1').attr('data-image', object.name);
-                    tdInfo = $('<td>').addClass('col-md-5').attr('data-info', object.name);
+                    tdImg = $('<td>').addClass('picture-size col-md-1').attr({'data-image': object.name, 'id': 'no-table'});
+                    tdInfo = $('<td>').addClass('col-md-5').attr({'data-info': object.name, 'id': 'table-mobile'});
                     $('tbody tr:last').append(tdImg, tdInfo);
                     $('<img>').attr('src', object.imgSrc).appendTo(tdImg);
                     $(`<h3>${object.name}</h3>`).appendTo(tdInfo);
