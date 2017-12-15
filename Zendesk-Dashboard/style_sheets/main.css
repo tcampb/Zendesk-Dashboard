@@ -1,0 +1,40 @@
+
+#header {
+    box-shadow: 0 7px 20px -5px rgba(0,0,0,0.2);
+    background-color: white;
+    height: 15vh;
+    /* border-width: 10px;
+    boder-style: solid;
+    border-left-color: blue;
+    border-top-color: blue;
+    border-bottom-color: lightblue;
+    border-right-color: lightblue; */
+}
+.white {
+    background-color: white;
+    height: 80vh;
+}
+
+.blue {
+    background-color: #00A2FF;
+    height: 5vh;
+}
+img {
+    width: 7vw;
+    border-radius: 50%;
+}
+
+#header img {
+    width: 400px;
+}
+
+.picture-size {
+    width: 10vw;
+}
+.assigned {
+    background-color: #00A2FF;
+}
+
+.solved {
+    background-color: rgb(14, 95, 14);
+}
