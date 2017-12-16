@@ -1,4 +1,5 @@
 var goalsAchieved = 0;
+var runAnimation = true;
 
 function formatAMPM(currentTime){
     var meridiem;
@@ -55,7 +56,8 @@ function goalAchieved() {
                                     }).appendTo('body');
     }
     $('[data-goal-achieved]').addClass('translate-screen');
-    goalsAchieved += 1;
+    goalsAchieved = 1;
+    runAnimation = false;
     //Delete images after 20 seconds
     setTimeout(function(){
         $('[data-goal-achieved]').remove();
@@ -85,8 +87,8 @@ $(document).ready(function(){
         var data = JSON.parse(data);
         var newGoal;
         if (data != "No data") {
-            console.log(data.ticketsCompleted);
             data.ticketsCompleted === "0" ? newGoal = true : newGoal = false;
+            if (newGoal) {runAnimation = true};
             var goalHour = data.time.slice(0, 2);
             var goalMinutes = data.time.slice(3);
             var goalTime = new Date();
@@ -101,7 +103,7 @@ $(document).ready(function(){
             $('[data-counter]').text(` ${ticketsRemaining}`);
             $('[data-div-goals]').removeClass('hidden');
             $('[data-time]').removeClass('hidden');
-            if (goalsAchieved === 1 && !newGoal) {
+            if ((goalsAchieved === 1) && !newGoal) {
                 $('[data-goal-achieved-icon]').remove();
                 $('<i class="fa fa-check" aria-hidden="true" style="color: #00c199"></i> data-goal-achieved-icon').prependTo($('[data-goals]'))
                 $('<i class="fa fa-check" aria-hidden="true" style="color: #00c199"></i> data-goal-achieved-icon').prependTo($('[data-goal-time]'))
@@ -118,9 +120,10 @@ $(document).ready(function(){
             //Change tickets remaining font color to color associated with the goal ticket type
             data.ticketType === "solved" ? $('[data-counter]').attr({"style": "color: #bed686"}) : $('[data-counter]').attr({"style": "color: #00A2FF"})
             //Check if group goal is completed
-            if (data.ticketType === "solved" && data.ticketsCompleted >= data.ticketNumber && currentTime <= goalTime && (goalsAchieved % 2 === 0)) {
+            console.log(goalsAchieved);
+            if (data.ticketType === "solved" && data.ticketsCompleted >= data.ticketNumber && currentTime <= goalTime && runAnimation) {
                 goalAchieved();
-            } else if (data.ticketType === "assigned" && data.ticketsCompleted >= data.ticketNumber && currentTime <= goalTime && (goalsAchieved % 2 === 0)) {
+            } else if (data.ticketType === "assigned" && data.ticketsCompleted >= data.ticketNumber && currentTime <= goalTime && runAnimation) {
                 goalAchieved();
             }
         } else {
