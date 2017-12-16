@@ -83,7 +83,10 @@ $(document).ready(function(){
     });
     $.get('/dailyGoal', function(data){
         var data = JSON.parse(data);
+        var newGoal;
         if (data != "No data") {
+            console.log(data.ticketsCompleted);
+            data.ticketsCompleted === "0" ? newGoal = true : newGoal = false;
             var goalHour = data.time.slice(0, 2);
             var goalMinutes = data.time.slice(3);
             var goalTime = new Date();
@@ -98,14 +101,19 @@ $(document).ready(function(){
             $('[data-counter]').text(` ${ticketsRemaining}`);
             $('[data-div-goals]').removeClass('hidden');
             $('[data-time]').removeClass('hidden');
-            if (goalsAchieved === 1) {
-                $('<i class="fa fa-check" aria-hidden="true" style="color: #00c199"></i>').prependTo($('[data-goals]'))
-                $('<i class="fa fa-check" aria-hidden="true" style="color: #00c199"></i>').prependTo($('[data-goal-time]'))
-                $('[data-counter-div-icon]').remove();
-                $('<i class="fa fa-check" aria-hidden="true" style="color: #00c199" data-counter-div-icon></i>').prependTo($('[data-counter-div]'));
+            if (goalsAchieved === 1 && !newGoal) {
+                $('[data-goal-achieved-icon]').remove();
+                $('<i class="fa fa-check" aria-hidden="true" style="color: #00c199"></i> data-goal-achieved-icon').prependTo($('[data-goals]'))
+                $('<i class="fa fa-check" aria-hidden="true" style="color: #00c199"></i> data-goal-achieved-icon').prependTo($('[data-goal-time]'))
+                $('<i class="fa fa-check" aria-hidden="true" style="color: #00c199" data-goal-achieved-icon></i>').prependTo($('[data-counter-div]'));
                 $('[data-goals]').removeClass().addClass('goal-achieved');
                 $('[data-goal-time]').removeClass().addClass('goal-achieved');
                 $('[data-counter-div]').removeClass().addClass('goal-achieved');
+            } else {
+                $('[data-goal-achieved-icon]').remove();
+                $('[data-goals]').addClass('goal');
+                $('[data-goal-time]').addClass('time');
+                $('[data-counter-div]').addClass('counter-div');
             }
             //Change tickets remaining font color to color associated with the goal ticket type
             data.ticketType === "solved" ? $('[data-counter]').attr({"style": "color: #bed686"}) : $('[data-counter]').attr({"style": "color: #00A2FF"})
