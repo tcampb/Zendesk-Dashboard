@@ -63,12 +63,21 @@ html, body {
 }
 
 .goal {
-    text-align: left;
     font-size: 30px;
 }
 
 .goal::before {
     content: attr(data-icon);
+    font-family: "FontAwesome";
+    color: #ffd700;
+}
+
+.goal-achieved {
+    font-size: 30px;
+}
+
+.goal2::before {
+    content: attr(data-icon-2);
     font-family: "FontAwesome";
     color: #ffd700;
 }
@@ -86,6 +95,11 @@ html, body {
 
 
 .time {
+    text-align: center; 
+    font-size: 30px;
+}
+
+.time2 {
     text-align: center; 
     font-size: 30px;
 }
@@ -163,6 +177,11 @@ td h3 {
 
 .hide {
     display: none;
+}
+
+.translate-screen {
+    transform: translate(-5000px);
+    transition: transform 20s; 
 }
 
 @media screen and (max-width: 1302px) {

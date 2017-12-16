@@ -1,3 +1,5 @@
+var goalsAchieved = 0;
+
 function formatAMPM(currentTime){
     var meridiem;
     var minutes = currentTime.getMinutes();
@@ -26,14 +28,13 @@ function deleteUser(objectArray){
             $(`[data-info="${userName}"]`).remove();
         }
     }
-
 }
 
 function goalValidation(userName, value){
-    $span = $(`[data-name="${userName}"`);
-    if (value >= 45 && $span) {
+    if (value >= 45) {
         $(`[data-sheep-animation="${userName}"`).removeClass('hide');
         $(`[data-progress-assigned="${userName}"]`).attr('id', 'goalMet');
+        $span = $(`[data-name="${userName}"`);
         $h3Width = Number($span.parent().css('width').replace('px', ''));
         $spanWidth = Number($span.css('width').replace('px', ''));
         animationWidth = '-' + String((($h3Width - $spanWidth) - 50)) + 'px';
@@ -42,6 +43,23 @@ function goalValidation(userName, value){
         $(`[data-sheep-animation="${userName}"`).addClass('hide');
         $(`[data-progress-assigned="${userName}"]`).removeAttr('id');
     }
+}
+
+function goalAchieved() {
+    for (var i=0; i < 150; i++) {
+        xAxis = String(Math.random() * $('[data-wrapper]').prop('clientWidth') + 1000) + 'px';
+        yAxis = String(Math.random() * $('[data-wrapper]').prop('clientHeight')) + 'px';
+        sheepImg = $('<img>').attr({'data-goal-achieved': '', 
+                                    'src': 'stylesheets/sheepy.gif', 
+                                    'style': `position: absolute; z-index: 1; bottom: ${yAxis}; left: ${xAxis}`
+                                    }).appendTo('body');
+    }
+    $('[data-goal-achieved]').addClass('translate-screen');
+    goalsAchieved += 1;
+    //Delete images after 20 seconds
+    setTimeout(function(){
+        $('[data-goal-achieved]').remove();
+    }, 20000);
 }
 
 
@@ -80,16 +98,22 @@ $(document).ready(function(){
             $('[data-counter]').text(` ${ticketsRemaining}`);
             $('[data-div-goals]').removeClass('hidden');
             $('[data-time]').removeClass('hidden');
-
-
-
+            if (goalsAchieved === 1) {
+                $('<i class="fa fa-check" aria-hidden="true" style="color: #00c199"></i>').prependTo($('[data-goals]'))
+                $('<i class="fa fa-check" aria-hidden="true" style="color: #00c199"></i>').prependTo($('[data-goal-time]'))
+                $('[data-counter-div-icon]').remove();
+                $('<i class="fa fa-check" aria-hidden="true" style="color: #00c199" data-counter-div-icon></i>').prependTo($('[data-counter-div]'));
+                $('[data-goals]').removeClass().addClass('goal-achieved');
+                $('[data-goal-time]').removeClass().addClass('goal-achieved');
+                $('[data-counter-div]').removeClass().addClass('goal-achieved');
+            }
             //Change tickets remaining font color to color associated with the goal ticket type
             data.ticketType === "solved" ? $('[data-counter]').attr({"style": "color: #bed686"}) : $('[data-counter]').attr({"style": "color: #00A2FF"})
             //Check if group goal is completed
-            if (data.ticketType === "solved" && ticketsSolved >= data.ticketNumber && currentTime <= goalTime) {
-                // CSS animations
-            } else if (data.ticketType === "assigned" && ticketsAssigned >= data.ticketNumber && currentTime <= goalTime) {
-                // CSS animations
+            if (data.ticketType === "solved" && data.ticketsCompleted >= data.ticketNumber && currentTime <= goalTime && (goalsAchieved % 2 === 0)) {
+                goalAchieved();
+            } else if (data.ticketType === "assigned" && data.ticketsCompleted >= data.ticketNumber && currentTime <= goalTime && (goalsAchieved % 2 === 0)) {
+                goalAchieved();
             }
         } else {
         $('[data-div-goals]').addClass('hidden');
