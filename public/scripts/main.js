@@ -47,7 +47,7 @@ function goalValidation(userName, value){
 }
 
 function goalAchieved() {
-    for (var i=0; i < 150; i++) {
+    for (var i=0; i < 100; i++) {
         xAxis = String(Math.random() * $('[data-wrapper]').prop('clientWidth') + 1000) + 'px';
         yAxis = String(Math.random() * $('[data-wrapper]').prop('clientHeight')) + 'px';
         sheepImg = $('<img>').attr({'data-goal-achieved': '', 
@@ -88,7 +88,7 @@ $(document).ready(function(){
         var newGoal;
         if (data != "No data") {
             data.ticketsCompleted === "0" ? newGoal = true : newGoal = false;
-            if (newGoal) {runAnimation = true};
+            if (newGoal && data.ticketsCompleted != 0) {runAnimation = true};
             var goalHour = data.time.slice(0, 2);
             var goalMinutes = data.time.slice(3);
             var goalTime = new Date();
@@ -120,7 +120,6 @@ $(document).ready(function(){
             //Change tickets remaining font color to color associated with the goal ticket type
             data.ticketType === "solved" ? $('[data-counter]').attr({"style": "color: #bed686"}) : $('[data-counter]').attr({"style": "color: #00A2FF"})
             //Check if group goal is completed
-            console.log(goalsAchieved);
             if (data.ticketType === "solved" && data.ticketsCompleted >= data.ticketNumber && currentTime <= goalTime && runAnimation) {
                 goalAchieved();
             } else if (data.ticketType === "assigned" && data.ticketsCompleted >= data.ticketNumber && currentTime <= goalTime && runAnimation) {

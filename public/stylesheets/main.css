@@ -86,6 +86,7 @@ html, body {
     display: flex;
     align-items: center;
     height: 100%;
+    padding-left: 2%;
 }
 
 .logo img {
