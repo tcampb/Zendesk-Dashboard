@@ -104,6 +104,35 @@ form[name="removeuser"] input[type="submit"]{
     outline: none;
 }
 
+form[name="setgoal"] input[type="submit"]{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    border: 1px solid #14c6a2;;
+    background-color: white;
+    color: #14c6a2;;
+    border-radius: 0;
+    height: 5vh;
+    outline: none;
+}
+
+form[name="setgoal"] h2{
+    margin-top: 10vh;
+    margin-bottom: 2vh;
+}
+
+input[type="number"], 
+input[type="time"] {
+    width: 100%;
+    height: 5vh;
+    outline: none;
+    font-size: 30px;
+}
+
+.radio-button-div {
+    margin: 5vh auto;
+}
+
 
 [data-trophy] {
     color: gold;

@@ -59,7 +59,7 @@ app.post('/admin', parseURL, function(req, res){
 });
 
 //Handle post request from Admin console (goals)
-app.post('/api/goals', parseURL, function(req, res){
+app.post('/api/setgoal', parseURL, function(req, res){
   if (req.header('TOKEN') != token) {
     res.sendStatus(403);
   } else {

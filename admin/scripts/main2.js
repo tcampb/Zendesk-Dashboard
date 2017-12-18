@@ -8,7 +8,7 @@ function getCurrentUsers(){
 }
 
 function sendFormData(){
-    $('[name="removeuser"]').on('submit', function(event){
+    $('form').on('submit', function(event){
         event.preventDefault();
         var form = $(this);
         $.ajax({
@@ -19,7 +19,9 @@ function sendFormData(){
                 xhr.setRequestHeader('TOKEN', localStorage.getItem("userId"));
             },
             success(response) {
-                generateConsoleScreen('removeuser', objectArray);
+                if (form.attr('name') === 'removeuser') {
+                    generateConsoleScreen('removeuser', objectArray);
+                }
             }
         });
     });
@@ -52,10 +54,12 @@ function generateConsoleScreen(e, objectArray) {
 
         case "adduser":
             $consoleDiv.append(createConsoleElement(e));
+            $('[data-goal]').empty().append($('<h2>').text('Add User'));
             sendFormData();
             break;
         case "removeuser":
             $consoleDiv.append(createConsoleElement(e, objectArray));
+            $('[data-goal]').empty().append($('<h2>').text('Remove User'));
             $('[data-remove-user-select]').change(function(){
                 changeImg($(this).val(), objectArray);
             });
@@ -64,6 +68,8 @@ function generateConsoleScreen(e, objectArray) {
             
         case "setgoal":
             $consoleDiv.append(createConsoleElement(e));
+            $('[data-goal]').empty().append($('<h2>').text('Set Goal'));
+            sendFormData();
             break;
     
         default:
@@ -75,7 +81,7 @@ function generateConsoleScreen(e, objectArray) {
 function createConsoleElement(select, objectArray){
     var $consoleDiv = $('<div>').addClass(select);
     var $consoleForm = $('<form>').attr({'action': `/api/${select}`, 'method': 'post', 'name': `${select}`});
-    var $submitButton = $('<input>').attr({'type': 'submit', 'value': 'submit'});
+    var $submitButton = $('<input>').attr({'type': 'submit', 'value': 'Submit'});
     var $formInput;
 
     switch (select) {
@@ -98,12 +104,23 @@ function createConsoleElement(select, objectArray){
             return $consoleDiv.append($consoleForm);
 
         case "setgoal":
-            $ticketNumberInput = $('<input>').attr({'type': 'number', 'value': '0', 'name': 'ticketNumber'})
-            $solvedRadioInput = $('<input>').attr({'type': 'radio', 'value': 'solved', 'name': 'ticketType'})
-            $assignedRadioInput = $('<input>').attr({'type': 'radio', 'value': 'assigned', 'name': 'ticketType'});
-            $timeInput = $('<input>').attr({'type': 'time', 'value': '0', 'name': 'time'});
+            var $menuContainer = $('<div>').addClass('select-container');
+            var $timeContainer = $('<div>').addClass('select-container');
+            $h2number = $('<h2><i class="fa fa-envelope-o" aria-hidden="true"></i> Number of tickets: </h2>');
+            $h2ticketType = $('<h2><i class="fa fa-ticket" aria-hidden="true"></i> Ticket Type: </h2>');
+            $h2time = $('<h2><i class="fa fa-clock-o" aria-hidden="true"></i> Goal Time: </h2>');
+            // $radioDiv = $('<div>').addClass('radio-button-div')
+            $ticketNumberInput = $('<input>').attr({'type': 'number', 'value': '0', 'name': 'ticketNumber'});
+            // $solvedRadioInput = $('<input> Solved<br>').attr({'type': 'radio', 'value': 'solved', 'name': 'ticketType', 'id': 'solved'}).appendTo($radioDiv);;
+            // $assignedRadioInput = $('<input> Assigned<br>').attr({'type': 'radio', 'value': 'assigned', 'name': 'ticketType', 'id': 'assigned'}).appendTo($radioDiv);;
+            $ticketType = $('<select data-ticket-type-select name="ticketType">').appendTo($menuContainer);
+            $solvedOption = $('<option>').text('Solved').attr({"value": `solved`}).appendTo($ticketType);
+            $assignedOption = $('<option>').text('Assigned').attr({"value": `assigned`}).appendTo($ticketType);
+            $timeInput = $('<input>').attr({'type': 'time', 'value': '0', 'name': 'time'}).appendTo($timeContainer);
             $hiddenInput = $('<input>').attr({'type': 'hidden', 'value': '0', 'name': 'ticketsCompleted'});
-            $consoleForm.append($ticketNumberInput, $solvedRadioInput, $assignedRadioInput, $timeInput, $hiddenInput, $submitButton);
+
+
+            $consoleForm.append($h2number, $ticketNumberInput, $h2ticketType, $menuContainer, $h2time, $timeContainer, $hiddenInput, $submitButton);
             return $consoleDiv.append($consoleForm);
         default:
             break;
