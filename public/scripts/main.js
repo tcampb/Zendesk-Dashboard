@@ -38,7 +38,7 @@ function goalValidation(userName, value){
         $span = $(`[data-name="${userName}"`);
         $h3Width = Number($span.parent().css('width').replace('px', ''));
         $spanWidth = Number($span.css('width').replace('px', ''));
-        animationWidth = '-' + String((($h3Width - $spanWidth) - 50)) + 'px';
+        animationWidth = '-' + String((($h3Width - $spanWidth) - 55)) + 'px';
         $(`[data-sheep-animation="${userName}"`).attr({'style': `transform: translate(${animationWidth}); transition: transform 10s;`})                                                          
     } else {
         $(`[data-sheep-animation="${userName}"`).addClass('hide');
@@ -47,8 +47,8 @@ function goalValidation(userName, value){
 }
 
 function goalAchieved() {
-    for (var i=0; i < 100; i++) {
-        xAxis = String(Math.random() * $('[data-wrapper]').prop('clientWidth') + 1000) + 'px';
+    for (var i=0; i < 150; i++) {
+        xAxis = String(Math.random() * $('[data-wrapper]').prop('clientWidth') + 2000) + 'px';
         yAxis = String(Math.random() * $('[data-wrapper]').prop('clientHeight')) + 'px';
         sheepImg = $('<img>').attr({'data-goal-achieved': '', 
                                     'src': 'stylesheets/sheepy.gif', 
@@ -58,10 +58,10 @@ function goalAchieved() {
     $('[data-goal-achieved]').addClass('translate-screen');
     goalsAchieved = 1;
     runAnimation = false;
-    //Delete images after 20 seconds
+    //Delete images after 30 seconds
     setTimeout(function(){
         $('[data-goal-achieved]').remove();
-    }, 20000);
+    }, 30000);
 }
 
 

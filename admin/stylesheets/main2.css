@@ -1,91 +1,169 @@
-html {
-    box-sizing: border-box;
-}
-*, *:before, *:after {
-    box-sizing: inherit;
-}
-
-body {
-    background-color: #f7f7f7
+.main-container {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);  
+    grid-template-rows: repeat(6, 15vh) 10vh;
+    background-color: #f7f7f7;
 }
 
-.error {
-    color: #e41600;
-}
-
-.container-fluid {
-    width: 500px;
-    height: 500px;
-    box-shadow:0 4px 16px rgba(0,0,0,.2);
-    margin-top: 130px;
-    background-color: white;
-}
-
-.header img {
-    display: block;
-    margin: 10% auto 0 auto;
-    height: 55px;
-    width: 55px;
-}
-
-.sign-in form {
-    margin-top: 55px;
-}
-
-.sign-in input {
-    border: none;
-    border-bottom: 1px solid #e0e0e0;
-}
-
-.sign-in input:focus {
-    border-bottom: 1px solid #00a2ff;
-    outline: none;
-}
-
-.sign-in div input {
-    display: block;
-    margin: 30px auto;
-    width: 75%;
-}
-
-.sign-in button, 
-button:focus {
-    background-color: #00a2ff;
-    box-shadow:0 4px 16px rgba(0,0,0,.2);
-    width: 100px;
-    height: 35px;
-    border-color: #0088ff;
-    margin-top: 5%;
-    margin-left: 70%;
-    color: white;
-    outline: none;
-}
-
-h3 {
+.header {
+    grid-column: 1/11;
+    grid-row: 1;
+    justify-self: center;
+    align-self: center;
     font-family: Proxima Nova, sans-serif;
-    color: rgba(77, 80, 85, 0.842);
-    text-align: center;
-    font-size: 25px;
+    color: #4D5055;
 }
 
-.reset {
-    margin-top: 70px;
-    text-align: center;
+.console-container {
+  grid-column: 4/8;
+  grid-row: 2 / 7;
+  background-color: white;
 }
 
-.reset a:hover{
-    cursor: pointer;
+.dropdown-menu-icons::before {
+  content: attr(data-icon);
+  font-family: "FontAwesome";
+}
+ 
+[data-trophy] {
+    color: gold;
 }
 
-@media screen and (max-width: 600px){
-    .container-fluid {
-        width: 100%;
-        height: 100vh;
-        margin: 0;
+[data-time] {
+    grid-column: 1/11;
+    grid-row: 7/8;
+    justify-self: center;
+
+}
+[data-greeting] {
+    grid-column: 5/9;
+    grid-row: 2;
+    align-self: top;
+}
+.dropdown-menu {
+    position: relative;
+    top: 0;
+}
+
+
+.btn-group {
+    grid-column: 8/9;
+    grid-row: 2;
+    align-self: bottom;
+}
+
+.btn-group button {
+  background-color:#04a2ff;
+  color: white;
+  width: 100%;
+}
+
+.btn-group button:hover {
+  background-color:white;
+  color: #04a2ff;
+  width: 100%;
+}
+
+
+[data-chart] {
+    grid-column: 2/11;
+    grid-row: 3/6;
+    margin: 10px;
+}
+[data-chart-align] {
+    justify-self: center;
+}
+canvas {
+    width: 90%;
+}
+h2 {
+    font-size: 14px;
+}
+/* Media query for phone portrait */
+@media screen and (max-width: 768px) and (orientation: portrait) {
+    [data-time] {
+        display: none;
+    } 
+    [data-chart] {
+        grid-column: 2/10;
+        grid-row: 3/6;
+        margin: 10px;
+    }    
+    [data-logo] {
+        width: 250px;
     }
-    .sign-in button {
-        display: block;
-        margin: 60px auto 0 auto;
+    h3 {
+        font-size: 12px;
     }
+  }
+/* Media query for phone landscape */
+@media screen and (max-width: 768px) and (orientation: landscape) {
+    [data-time] {
+        display: none;
+    } 
+    [data-chart] {
+        grid-column: 4/10;
+        grid-row: 3/5;
+        margin: 10px;
+        start-at-zero: true;
+    }    
+    [data-logo] {
+        width: 250px;
+    }
+    [data-dropdown] {
+        grid-column: 2/6;
+    }
+    h3 {
+        font-size: 12px;
+    }
+  }
+  /* Media query for tablet: portrait */
+  @media screen and (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+    [data-logo] {
+        width: 400px;
+    }
+    [data-dropdown] {
+        grid-column: 2/5;
+    }
+    h2 {
+        font-size: 22px;
+    }
+    
+    } 
 
+  /* Media query for tablet: landscape */
+  @media screen and (min-width: 1025px) and (max-width:1200px) and (orientation: landscape) {
+    [data-logo] {
+        width: 400px;
+    }
+    h2 {
+        font-size: 30px;
+    }
+    [data-chart] {
+        font-size: 28px;
+    }
+  } 
+/* Media query for laptop and desktop */
+@media screen and (min-width: 1200px) {
+    [data-logo] {
+        width: 400px;
+    }
+    h2 {
+        font-size: 30px;
+    }
+    [data-chart] {
+        font-size: 28px;
+        grid-row: 3/6;
+        grid-column: 3/9;
+    }
+  } 
+  @media screen and (min-width: 1200px) {
+    [data-time] {
+        grid-row: 1;
+        grid-column: 6/8;
+        align-self: center;
+    }
+    [data-logo] {
+        grid-column: 2/5;
+    }
 }
