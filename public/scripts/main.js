@@ -1,3 +1,6 @@
+var goalsAchieved = 0;
+var runAnimation = true;
+
 function formatAMPM(currentTime){
     var meridiem;
     var minutes = currentTime.getMinutes();
@@ -26,8 +29,41 @@ function deleteUser(objectArray){
             $(`[data-info="${userName}"]`).remove();
         }
     }
-
 }
+
+function goalValidation(userName, value){
+    if (value >= 45) {
+        $(`[data-sheep-animation="${userName}"`).removeClass('hide');
+        $(`[data-progress-assigned="${userName}"]`).attr('id', 'goalMet');
+        $span = $(`[data-name="${userName}"`);
+        $h3Width = Number($span.parent().css('width').replace('px', ''));
+        $spanWidth = Number($span.css('width').replace('px', ''));
+        animationWidth = '-' + String((($h3Width - $spanWidth) - 55)) + 'px';
+        $(`[data-sheep-animation="${userName}"`).attr({'style': `transform: translate(${animationWidth}); transition: transform 10s;`})                                                          
+    } else {
+        $(`[data-sheep-animation="${userName}"`).addClass('hide');
+        $(`[data-progress-assigned="${userName}"]`).removeAttr('id');
+    }
+}
+
+function goalAchieved() {
+    for (var i=0; i < 150; i++) {
+        xAxis = String(Math.random() * $('[data-wrapper]').prop('clientWidth') + 2000) + 'px';
+        yAxis = String(Math.random() * $('[data-wrapper]').prop('clientHeight')) + 'px';
+        sheepImg = $('<img>').attr({'data-goal-achieved': '', 
+                                    'src': 'stylesheets/sheepy.gif', 
+                                    'style': `position: absolute; z-index: 1; bottom: ${yAxis}; left: ${xAxis}`
+                                    }).appendTo('body');
+    }
+    $('[data-goal-achieved]').addClass('translate-screen');
+    goalsAchieved = 1;
+    runAnimation = false;
+    //Delete images after 30 seconds
+    setTimeout(function(){
+        $('[data-goal-achieved]').remove();
+    }, 30000);
+}
+
 
 $(document).ready(function(){
     setInterval(function(){
@@ -37,6 +73,7 @@ $(document).ready(function(){
     $.get('/userRecords', function(data){
         $.each(JSON.parse(data), function(userAction, userObject){
             $.each(userObject, function(userName, value){
+                if (userAction === "assigned") {goalValidation(userName, value)}
                 userAction === "solved" ? ticketsSolved += value : ticketsAssigned += value;
                 var maxValue = $(`[data-progress-${userAction}="${userName}"]`).attr('aria-valuemax');
                 $(`[data-progress-${userAction}="${userName}"`).attr({
@@ -48,7 +85,10 @@ $(document).ready(function(){
     });
     $.get('/dailyGoal', function(data){
         var data = JSON.parse(data);
+        var newGoal;
         if (data != "No data") {
+            data.ticketsCompleted === "0" ? newGoal = true : newGoal = false;
+            if (newGoal && data.ticketsCompleted != 0) {runAnimation = true};
             var goalHour = data.time.slice(0, 2);
             var goalMinutes = data.time.slice(3);
             var goalTime = new Date();
@@ -63,11 +103,27 @@ $(document).ready(function(){
             $('[data-counter]').text(` ${ticketsRemaining}`);
             $('[data-div-goals]').removeClass('hidden');
             $('[data-time]').removeClass('hidden');
+            if ((goalsAchieved === 1) && !newGoal) {
+                $('[data-goal-achieved-icon]').remove();
+                $('<i class="fa fa-check" aria-hidden="true" style="color: #00c199"></i> data-goal-achieved-icon').prependTo($('[data-goals]'))
+                $('<i class="fa fa-check" aria-hidden="true" style="color: #00c199"></i> data-goal-achieved-icon').prependTo($('[data-goal-time]'))
+                $('<i class="fa fa-check" aria-hidden="true" style="color: #00c199" data-goal-achieved-icon></i>').prependTo($('[data-counter-div]'));
+                $('[data-goals]').removeClass().addClass('goal-achieved');
+                $('[data-goal-time]').removeClass().addClass('goal-achieved');
+                $('[data-counter-div]').removeClass().addClass('goal-achieved');
+            } else {
+                $('[data-goal-achieved-icon]').remove();
+                $('[data-goals]').addClass('goal');
+                $('[data-goal-time]').addClass('time');
+                $('[data-counter-div]').addClass('counter-div');
+            }
+            //Change tickets remaining font color to color associated with the goal ticket type
             data.ticketType === "solved" ? $('[data-counter]').attr({"style": "color: #bed686"}) : $('[data-counter]').attr({"style": "color: #00A2FF"})
-            if (data.ticketType === "solved" && ticketsSolved >= data.ticketNumber && currentTime <= goalTime) {
-                // CSS animations
-            } else if (data.ticketType === "assigned" && ticketsAssigned >= data.ticketNumber && currentTime <= goalTime) {
-                // CSS animations
+            //Check if group goal is completed
+            if (data.ticketType === "solved" && data.ticketsCompleted >= data.ticketNumber && currentTime <= goalTime && runAnimation) {
+                goalAchieved();
+            } else if (data.ticketType === "assigned" && data.ticketsCompleted >= data.ticketNumber && currentTime <= goalTime && runAnimation) {
+                goalAchieved();
             }
         } else {
         $('[data-div-goals]').addClass('hidden');
@@ -88,7 +144,7 @@ $(document).ready(function(){
                     tdInfo = $('<td>').addClass('col-md-5').attr({'data-info': object.name, 'id': 'table-mobile'});
                     $('tbody tr:last').append(tdImg, tdInfo);
                     $('<img>').attr('src', object.imgSrc).appendTo(tdImg);
-                    $(`<h3>${object.name}</h3>`).appendTo(tdInfo);
+                    $(`<h3><span data-name="${object.name}">${object.name}</span><img src="stylesheets/sheepy.gif" data-sheep-animation="${object.name}" class="hide"></h3>`).appendTo(tdInfo);
                     progressBarAssignedDiv = $('<div>').attr({'class': 'progress'});
                     $('<div>').attr({'class': `progress-bar progress-bar-striped active assigned`,
                                         'role': "progressbar",
