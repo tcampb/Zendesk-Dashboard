@@ -44,11 +44,14 @@ function createConsoleElement(select, objectArray){
             $consoleForm.append($userNameInput, $fileInput, $submitButton);
             return $consoleDiv.append($consoleForm);
         case "removeuser":
-            var $dropdownMenu = $('<select>');
+            var $menuContainer = $('<div>').addClass('select-container');
+            var $dropdownMenu = $('<select>').appendTo($menuContainer);
+            var $default = $('<option>').text('Select a user').attr({"value": `none`}).appendTo($dropdownMenu);
             $.each(objectArray, function(index, object){
                 var selectOption = $('<option>').text(`${object.name}`).attr({"value": `${object.name}`}).appendTo($dropdownMenu);
             });
-            $consoleForm.append($dropdownMenu, $submitButton);
+            $imgPlaceholder = $('<div><i class="fa fa-user-circle-o" aria-hidden="true"></i></div>').attr({'class': 'remove-user-img', 'data-remove-user-img': ''});
+            $consoleForm.append($menuContainer, $submitButton);
             return $consoleDiv.append($consoleForm);
 
         case "setgoal":
@@ -63,23 +66,6 @@ function createConsoleElement(select, objectArray){
             break;
     }
 };
-
-
-//     <form action="/api/delete" method="post" name="Delete">
-//         <select name="username" data-remove-user>
-//             <option value=" " selected hidden>Select</option>   
-//         <input type="submit" value="submit">
-//     </form>
-
-// <form action="/api/goals" method="post" name="test123123123">
-//         <input type="number" value="0" id="test" name="ticketNumber">Tickets Number
-//         <input type="radio" value="solved" name="ticketType">Solved
-//         <input type="radio" value="assigned" name="ticketType">Assigned
-//         <input type="time" value="0" id="test" name="time">Time
-//         <input type="hidden" value="0" name="ticketsCompleted">
-//         <input type="submit" value="submit">
-//     </form>
-
 
 $(document).ready(function(){
     var objectArray = [];
