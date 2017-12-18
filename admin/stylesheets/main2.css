@@ -16,7 +16,7 @@
 
 .console-container {
   grid-column: 4/8;
-  grid-row: 2 / 7;
+  grid-row: 2/7;
   background-color: white;
 }
 
@@ -24,6 +24,41 @@
   content: attr(data-icon);
   font-family: "FontAwesome";
 }
+
+.navbar {
+    grid-column: 1/4;
+    grid-row: 2/5;
+    list-style-type: none;
+    color: #604f55;
+    font-size: 20px;
+}
+
+.navbar-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    height: 100%;
+    padding-left: 10vw;
+
+
+}
+
+.navbar-menu li {
+    list-style-type: none;
+    /* margin-top: 20%; */
+}
+
+.navbar-menu a {
+    color: black;
+    text-decoration: none;
+}
+/* Apply style if navbar item selected */
+.selected {
+    font-weight: 900;
+}
+
+    
  
 [data-trophy] {
     color: gold;

@@ -18,8 +18,7 @@ function generateConsoleScreen(e, objectArray) {
             $consoleDiv.append(createConsoleElement(e));
             break;
         case "removeuser":
-            // $consoleDiv.append(createConsoleElement(e));
-            console.log(objectArray);
+            $consoleDiv.append(createConsoleElement(e, objectArray));
             break;
             
         case "setgoal":
@@ -32,7 +31,7 @@ function generateConsoleScreen(e, objectArray) {
     }
 };
 
-function createConsoleElement(select){
+function createConsoleElement(select, objectArray){
     var $consoleDiv = $('<div>').addClass(select);
     var $consoleForm = $('<form>').attr({'action': `/api/${select}`, 'method': 'post'});
     var $submitButton = $('<input>').attr({'type': 'submit', 'value': 'submit'});
@@ -45,7 +44,13 @@ function createConsoleElement(select){
             $consoleForm.append($userNameInput, $fileInput, $submitButton);
             return $consoleDiv.append($consoleForm);
         case "removeuser":
-            f
+            var $dropdownMenu = $('<select>');
+            $.each(objectArray, function(index, object){
+                var selectOption = $('<option>').text(`${object.name}`).attr({"value": `${object.name}`}).appendTo($dropdownMenu);
+            });
+            $consoleForm.append($dropdownMenu, $submitButton);
+            return $consoleDiv.append($consoleForm);
+
         case "setgoal":
             $ticketNumberInput = $('<input>').attr({'type': 'number', 'value': '0', 'name': 'ticketNumber'})
             $solvedRadioInput = $('<input>').attr({'type': 'radio', 'value': 'solved', 'name': 'ticketType'})
@@ -82,13 +87,14 @@ $(document).ready(function(){
     setInterval(function(){
         $.get('/currentUsers', function(data){
             var data = JSON.parse(data);
-            var objectArray = Object.values(data);
+            objectArray = Object.values(data);
         });
     }, 1000);
         
-        
     $('[data-select]').click(function(event){
         event.preventDefault();
+        $('[data-select]').removeClass('selected');
+        $(this).addClass('selected');
         generateConsoleScreen($(this).attr('data-select'), objectArray);
     });
 
