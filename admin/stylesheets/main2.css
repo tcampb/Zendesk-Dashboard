@@ -28,6 +28,7 @@ html, body {
   grid-column: 4/8;
   grid-row: 2/7;
   background-color: white;
+  position: relative;
 }
 
 .dropdown-menu-icons::before {
@@ -85,11 +86,25 @@ html, body {
     height: 5vh;
 }
 
+.remove-user-img {
+    height: 65%;
+    margin-top: 30%;
+    text-align: center;
+}
+
+form[name="removeuser"] input[type="submit"]{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    border: 1px solid #e41600;
+    background-color: white;
+    color: #e41600;
+    border-radius: 0;
+    height: 5vh;
+    outline: none;
+}
 
 
-
-    
- 
 [data-trophy] {
     color: gold;
 }

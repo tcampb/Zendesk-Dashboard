@@ -69,10 +69,11 @@ app.post('/api/goals', parseURL, function(req, res){
 });
 
 //Handle delete requests from Admin console
-app.post('/api/delete', parseURL, function(req, res){
+app.post('/api/removeuser', parseURL, function(req, res){
   if (req.header('TOKEN') != token) {
     res.sendStatus(403);
   } else {
+      console.log(res.data);
       var userName = JSON.parse(JSON.stringify(req.body));
       var userFound;
       userName = userName.username;
