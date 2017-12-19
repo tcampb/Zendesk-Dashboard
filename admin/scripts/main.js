@@ -10,15 +10,16 @@ function getCurrentUsers(){
 
 function sendFormData(){
     $('form').on('submit', function(event){
-        // if (form.attr('name') === 'adduser') {
-            //     window.location.replace(`${currentURL}admin/#`);
-            // };
         event.preventDefault()
         var form = $(this);
+        var formData = new FormData(form[0]);
+        var processData = true;
+        form.attr('name') === 'adduser' ?  processData = false : formData = form.serialize();
         $.ajax({
             type: 'POST',
             url:  form.attr('action'),
-            data: form.serialize(),
+            data: formData,
+            processData: processData,
             beforeSend: function(xhr){
                 xhr.setRequestHeader('TOKEN', localStorage.getItem("userId"));
             },
@@ -77,7 +78,7 @@ function generateConsoleScreen(e, objectArray) {
             break;
     
         default:
-            $consoleDiv.append('<iframe src="https://f2344051.ngrok.io" width="100%" height="100%" style="border:none"></iframe>');
+            $consoleDiv.append('<iframe src="http://54db5e67.ngrok.io/" width="100%" height="100%" style="border:none"></iframe>');
             break;
     }
 };
