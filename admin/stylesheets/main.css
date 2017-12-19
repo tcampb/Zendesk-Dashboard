@@ -10,7 +10,7 @@ html, body {
 
 .main-container {
     display: grid;
-    grid-template-columns: repeat(10, 1fr);  
+    grid-template-columns: repeat(10, 1fr);
     grid-template-rows: repeat(6, 15vh) 10vh;
     background-color: #f7f7f7;
 }
@@ -134,6 +134,11 @@ form[name="setgoal"] h2{
     margin-bottom: 2vh;
 }
 
+form[name="adduser"] h2 {
+    margin-top: 5vh;
+    margin-bottom: 3vh;
+}
+
 input[type="number"], 
 input[type="time"] {
     width: 100%;
@@ -144,6 +149,35 @@ input[type="time"] {
 
 .radio-button-div {
     margin: 5vh auto;
+}
+
+#file-upload {
+    display: none;
+}
+
+.file-label {
+    display: grid;
+    width: 35vw;
+    height: 35vh;
+    background-color: #f3faff;
+    border: 2px dashed #00a3fa;
+    margin: 10vh auto 0 auto;
+    justify-items: center;
+    align-items: center;
+}
+
+.file-span {
+    display: block;
+    color: #00a3fa69;
+    text-align: center;
+    font-size: 120px;
+}
+
+.file-span::after{
+    content: "Select a file or drag here";
+    font-size: 10px;
+    display: block;
+    margin-top: -25%;
 }
 
 

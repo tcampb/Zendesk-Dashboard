@@ -1,5 +1,5 @@
 var objectArray = [];
-var currentURL = 'http://54db5e67.ngrok.io/';
+var currentURL;
 
 function getCurrentUsers(){
     $.get('/currentUsers', function(data){
@@ -60,7 +60,7 @@ function generateConsoleScreen(e, objectArray) {
     switch (e) {
         case "logout":
             localStorage.clear();
-            location.assign('https://4da9b220.ngrok.io/admin/');
+            location.assign(currentURL);
             break;
 
         case "adduser":
@@ -84,7 +84,8 @@ function generateConsoleScreen(e, objectArray) {
             break;
     
         default:
-            $consoleDiv.append('<iframe src="http://54db5e67.ngrok.io/" width="100%" height="100%" style="border:none"></iframe>');
+            $consoleDiv.append(`<iframe src="${currentURL}" width="100%" height="100%" style="border:none"></iframe>`);
+            $('[data-goal]').empty().append($('<h2>').text('Dashboard'));
             break;
     }
 };
@@ -97,10 +98,16 @@ function createConsoleElement(select, objectArray){
 
     switch (select) {
         case "adduser":
+            var $menuContainer = $('<div>').addClass('select-container');
             $consoleForm.attr('enctype', 'multipart/form-data');
-            $userNameInput = $('<input>').attr({'type': 'text', 'value': '', 'name': 'username'});
-            $fileInput = $('<input>').attr({'type': 'file', 'value': '', 'name': 'img'});
-            $consoleForm.append($userNameInput, $fileInput, $submitButton);
+            $h2userName = $('<h2><i class="fa fa-user" aria-hidden="true"></i></i> Zendesk Username: </h2>');
+            $userNameInput = $('<input>').attr({'type': 'text', 'value': '', 'name': 'username', 'style':
+                                                                                                 'width: 100%; height: 100%; outline: none; border: none;'})
+                                                                                                 .appendTo($menuContainer);  
+            $fileInput = $('<input>').attr({'type': 'file', 'value': '', 'name': 'img', 'id': 'file-upload'});
+            $fileLabel = $('<label></label>').attr({'for': 'file-upload', 'class': 'file-label'});
+            $fileLabelSpan = $('<span><i class="fa fa-cloud-upload" aria-hidden="true"></i></span>').addClass('file-span').appendTo($fileLabel);
+            $consoleForm.append($h2userName, $menuContainer, $fileInput, $fileLabel, $submitButton);
             return $consoleDiv.append($consoleForm);
         case "removeuser":
             var $removeUserButton = $('<input>').attr({'type': 'submit', 'value': 'Remove User'});
@@ -121,10 +128,7 @@ function createConsoleElement(select, objectArray){
             $h2number = $('<h2><i class="fa fa-envelope-o" aria-hidden="true"></i> Number of tickets: </h2>');
             $h2ticketType = $('<h2><i class="fa fa-ticket" aria-hidden="true"></i> Ticket Type: </h2>');
             $h2time = $('<h2><i class="fa fa-clock-o" aria-hidden="true"></i> Goal Time: </h2>');
-            // $radioDiv = $('<div>').addClass('radio-button-div')
             $ticketNumberInput = $('<input>').attr({'type': 'number', 'value': '0', 'name': 'ticketNumber'});
-            // $solvedRadioInput = $('<input> Solved<br>').attr({'type': 'radio', 'value': 'solved', 'name': 'ticketType', 'id': 'solved'}).appendTo($radioDiv);;
-            // $assignedRadioInput = $('<input> Assigned<br>').attr({'type': 'radio', 'value': 'assigned', 'name': 'ticketType', 'id': 'assigned'}).appendTo($radioDiv);;
             $ticketType = $('<select data-ticket-type-select name="ticketType">').appendTo($menuContainer);
             $solvedOption = $('<option>').text('Solved').attr({"value": `solved`}).appendTo($ticketType);
             $assignedOption = $('<option>').text('Assigned').attr({"value": `assigned`}).appendTo($ticketType);
