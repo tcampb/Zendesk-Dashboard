@@ -12,13 +12,19 @@ function sendFormData(){
     $('form').on('submit', function(event){
         event.preventDefault()
         var form = $(this);
-        var formData = new FormData(form[0]);
+        var formData = form.serialize();
         var processData = true;
-        form.attr('name') === 'adduser' ?  processData = false : formData = form.serialize();
+        var contentType = 'application/x-www-form-urlencoded; charset=UTF-8';
+        if (form.attr('name') === 'adduser') {
+            processData = false;
+            formData = new FormData(form[0]);
+            contentType = false;
+        }
         $.ajax({
             type: 'POST',
             url:  form.attr('action'),
             data: formData,
+            contentType: contentType,
             processData: processData,
             beforeSend: function(xhr){
                 xhr.setRequestHeader('TOKEN', localStorage.getItem("userId"));
