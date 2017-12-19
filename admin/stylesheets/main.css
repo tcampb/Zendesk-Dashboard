@@ -10,18 +10,32 @@ html, body {
 
 .main-container {
     display: grid;
-    grid-template-columns: repeat(10, 1fr);  
+    grid-template-columns: repeat(10, 1fr);
     grid-template-rows: repeat(6, 15vh) 10vh;
     background-color: #f7f7f7;
 }
 
 .header {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
     grid-column: 1/11;
-    grid-row: 1;
+    grid-row: 1/2;
     justify-self: center;
     align-self: center;
     font-family: Proxima Nova, sans-serif;
     color: #4D5055;
+    box-shadow: 0 7px 20px -5px rgba(0,0,0,0.2);
+    background-color: white;
+    width: 100%;
+    align-self: start;
+    min-height: 93px;
+}
+
+.logo {
+    display: grid;
+    grid-column: 1/3;
+    justify-self: center;
+    align-self: center;
 }
 
 .console-container {
@@ -51,8 +65,6 @@ html, body {
     align-items: flex-start;
     height: 100%;
     padding-left: 10vw;
-
-
 }
 
 .navbar-menu li {
@@ -104,7 +116,8 @@ form[name="removeuser"] input[type="submit"]{
     outline: none;
 }
 
-form[name="setgoal"] input[type="submit"]{
+form[name="setgoal"] input[type="submit"],
+form[name="adduser"] input[type="submit"]{
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -121,6 +134,11 @@ form[name="setgoal"] h2{
     margin-bottom: 2vh;
 }
 
+form[name="adduser"] h2 {
+    margin-top: 5vh;
+    margin-bottom: 3vh;
+}
+
 input[type="number"], 
 input[type="time"] {
     width: 100%;
@@ -131,6 +149,35 @@ input[type="time"] {
 
 .radio-button-div {
     margin: 5vh auto;
+}
+
+#file-upload {
+    display: none;
+}
+
+.file-label {
+    display: grid;
+    width: 35vw;
+    height: 35vh;
+    background-color: #f3faff;
+    border: 2px dashed #00a3fa;
+    margin: 10vh auto 0 auto;
+    justify-items: center;
+    align-items: center;
+}
+
+.file-span {
+    display: block;
+    color: #00a3fa69;
+    text-align: center;
+    font-size: 120px;
+}
+
+.file-span::after{
+    content: "Select a file or drag here";
+    font-size: 10px;
+    display: block;
+    margin-top: -25%;
 }
 
 
@@ -185,8 +232,10 @@ input[type="time"] {
 canvas {
     width: 90%;
 }
-h2 {
-    font-size: 14px;
+.header h2 {
+    font-size: 30px;
+    grid-column: 5/7;
+    justify-self: center;
 }
 /* Media query for phone portrait */
 @media screen and (max-width: 768px) and (orientation: portrait) {
@@ -234,11 +283,7 @@ h2 {
     [data-dropdown] {
         grid-column: 2/5;
     }
-    h2 {
-        font-size: 22px;
-    }
     
-    } 
 
   /* Media query for tablet: landscape */
   @media screen and (min-width: 1025px) and (max-width:1200px) and (orientation: landscape) {

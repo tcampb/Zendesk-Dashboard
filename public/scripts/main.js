@@ -79,7 +79,7 @@ $(document).ready(function(){
                 $(`[data-progress-${userAction}="${userName}"`).attr({
                                                                   "aria-valuenow": `${value}`,
                                                                   "style": `width: ${(value / maxValue) * 100}%; min-width: 3%;`
-                                                                 }).text(`${value}`);;                                                       
+                                                                 }).text(`${value}`);                                                   
             });
         });
     });
