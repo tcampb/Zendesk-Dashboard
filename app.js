@@ -1,17 +1,18 @@
-const fs = require('fs');
-const express = require('express');
-const hostname = '127.0.0.1';
-const port = 80;
-var app = express();
-const bodyParser = require('body-parser');
+var fs = require('fs');
+var express = require('express');
+var hostname = '127.0.0.1';
+var port = 80;
+var bodyParser = require('body-parser');
 var parseJSON = bodyParser.json();
 var parseURL = bodyParser.urlencoded({ extended: false });
-let currentUsers = {};
-let userRecords = {};
-const midnight = "00:00:00";
-const re = new RegExp('..:..:..');
-const token = 'P3dj82aXY1eqc7a24UBqzsP992a2';
-
+var currentUsers = {};
+var userRecords = {};
+var midnight = "00:00:00";
+var re = new RegExp('..:..:..');
+var token = '<USER TOKEN>';
+var multer  = require('multer')
+var upload = multer({ dest: 'public/uploads/' });
+var app = express();
 // Reset file at midnight of each day
 // setInterval(function(){
 //   now = new Date();
@@ -105,14 +106,20 @@ app.post('/api/removeuser', parseURL, function(req, res){
   }
 });
 
+//TEST
+// app.post('/api/adduser', upload.single('img'), function(req, res){
+//     console.log(req.file.path);
+//     res.end();
+// });
+
 //Handle post requests from Admin console (add user)
-app.post('/api/add', parseURL, function(req, res){
+app.post('/api/adduser', upload.single('img'), function(req, res){
   if (req.header('TOKEN') != token) {
     res.sendStatus(403);
   } else {
     var userInfo = JSON.parse(JSON.stringify(req.body));
     var userName = userInfo.username;
-    var imgSrc = userInfo.img;
+    var imgSrc = req.file.path.replace('public', '');
 
     fs.readFile('currentUsers.json', 'utf8', function(err, data){
       err && res.redirect('/admin/error=500');
@@ -133,7 +140,6 @@ app.post('/api/add', parseURL, function(req, res){
       });
     }
 });
-
 
 //Handle post requests from Zendesk
 app.post('/api/post', parseJSON, function(req, res){
@@ -170,15 +176,3 @@ app.post('/api/post', parseJSON, function(req, res){
 //Listen to port 
 app.listen(80);
 console.log(`Server running at http://${hostname}:${port}/`);
-
-
-
-
-
-
-  
-
- 
- 
- 
- 
