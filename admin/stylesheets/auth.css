@@ -1,0 +1,111 @@
+html {
+    box-sizing: border-box;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+body {
+    background-color: #00A2FF
+}
+
+.error {
+    color: #e41600;
+}
+
+.container-fluid {
+    width: 500px;
+    height: 500px;
+    box-shadow:0 4px 16px rgba(0,0,0,.2);
+    margin-top: 130px;
+    background-color: white;
+}
+
+.header img {
+    display: block;
+    margin: 10% auto 0 auto;
+    height: 55px;
+    width: 55px;
+}
+
+.sign-in form {
+    margin-top: 45px;
+}
+
+.sign-in input {
+    border: none;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.sign-in input:focus {
+    border-bottom: 1px solid #00a2ff;
+    outline: none;
+}
+
+.sign-in div input {
+    display: block;
+    margin: 30px auto;
+    width: 75%;
+}
+
+.sign-in button, 
+button:focus {
+    background-color: #00a2ff;
+    box-shadow:0 4px 16px rgba(0,0,0,.2);
+    width: 100px;
+    height: 35px;
+    border-color: #0088ff;
+    margin-top: 1%;
+    margin-left: 70%;
+    color: white;
+    outline: none;
+}
+
+h3 {
+    font-family: Proxima Nova, sans-serif;
+    color: rgba(77, 80, 85, 0.842);
+    text-align: center;
+    font-size: 25px;
+    padding-top: 80px;
+}
+
+.reset {
+    margin-top: 70px;
+    text-align: center;
+}
+
+.reset a:hover{
+    cursor: pointer;
+}
+
+@media screen and (max-width: 600px){
+    .container-fluid {
+        width: 100%;
+        height: 100vh;
+        margin: 0;
+    }
+    .sign-in button {
+        display: block;
+        margin: 60px auto 0 auto;
+    }
+
+}
+.cal-logo {
+    padding-top: 20px;
+}
+
+#password-error {
+    display: none;
+    color: red;
+    font-size: 18px;
+}
+#email-error {
+    display: none;
+    color: red;
+    font-size: 18px;
+}
+#user-error {
+    display: none;
+    color: red;
+    font-size: 18px;
+}
