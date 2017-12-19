@@ -63,7 +63,9 @@ passwordReset.on('click', function(event){
 
 //Return Admin console if authentication is successful
 firebase.auth().onAuthStateChanged(function(user){
+    console.log("test");
     if (user){
+        console.log(user.uid);
         localStorage.setItem("userId", user.uid);
         email.val("");
         password.val("");
@@ -71,7 +73,7 @@ firebase.auth().onAuthStateChanged(function(user){
             type: 'POST',
             url: '/admin',
             data: user.uid,
-            success(response){;
+            success(response){
                 document.open();
                 document.write(response);
                 document.close();

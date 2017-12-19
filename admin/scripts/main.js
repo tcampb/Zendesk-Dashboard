@@ -1,4 +1,5 @@
 var objectArray = [];
+var currentURL = 'http://54db5e67.ngrok.io/';
 
 function getCurrentUsers(){
     $.get('/currentUsers', function(data){
@@ -9,7 +10,10 @@ function getCurrentUsers(){
 
 function sendFormData(){
     $('form').on('submit', function(event){
-        event.preventDefault();
+        // if (form.attr('name') === 'adduser') {
+            //     window.location.replace(`${currentURL}admin/#`);
+            // };
+        event.preventDefault()
         var form = $(this);
         $.ajax({
             type: 'POST',
@@ -73,7 +77,7 @@ function generateConsoleScreen(e, objectArray) {
             break;
     
         default:
-            $consoleDiv.append('<iframe src="https://4da9b220.ngrok.io/" width="100%" height="100%" style="border:none"></iframe>');
+            $consoleDiv.append('<iframe src="https://f2344051.ngrok.io" width="100%" height="100%" style="border:none"></iframe>');
             break;
     }
 };
@@ -86,6 +90,7 @@ function createConsoleElement(select, objectArray){
 
     switch (select) {
         case "adduser":
+            $consoleForm.attr('enctype', 'multipart/form-data');
             $userNameInput = $('<input>').attr({'type': 'text', 'value': '', 'name': 'username'});
             $fileInput = $('<input>').attr({'type': 'file', 'value': '', 'name': 'img'});
             $consoleForm.append($userNameInput, $fileInput, $submitButton);

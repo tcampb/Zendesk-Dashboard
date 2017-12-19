@@ -2,7 +2,6 @@ const fs = require('fs');
 const express = require('express');
 const hostname = '127.0.0.1';
 const port = 80;
-var app = express();
 const bodyParser = require('body-parser');
 var parseJSON = bodyParser.json();
 var parseURL = bodyParser.urlencoded({ extended: false });
@@ -11,7 +10,9 @@ let userRecords = {};
 const midnight = "00:00:00";
 const re = new RegExp('..:..:..');
 const token = 'P3dj82aXY1eqc7a24UBqzsP992a2';
-
+var multer  = require('multer')
+var upload = multer({ dest: 'uploads/' });
+var app = express();
 // Reset file at midnight of each day
 // setInterval(function(){
 //   now = new Date();
@@ -105,6 +106,12 @@ app.post('/api/removeuser', parseURL, function(req, res){
   }
 });
 
+//TEST
+app.post('/api/adduser', upload.single('img'), function(req, res){
+    console.log(req.file);
+    res.end();
+});
+
 //Handle post requests from Admin console (add user)
 app.post('/api/add', parseURL, function(req, res){
   if (req.header('TOKEN') != token) {
@@ -133,7 +140,6 @@ app.post('/api/add', parseURL, function(req, res){
       });
     }
 });
-
 
 //Handle post requests from Zendesk
 app.post('/api/post', parseJSON, function(req, res){
@@ -170,15 +176,3 @@ app.post('/api/post', parseJSON, function(req, res){
 //Listen to port 
 app.listen(80);
 console.log(`Server running at http://${hostname}:${port}/`);
-
-
-
-
-
-
-  
-
- 
- 
- 
- 
