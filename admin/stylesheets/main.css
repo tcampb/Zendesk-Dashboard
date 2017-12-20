@@ -197,15 +197,17 @@ input[type="time"] {
     align-self: top;
 }
 .dropdown-menu {
-    position: relative;
-    top: 0;
+    position: absolute;
+    top: 4.5vh;
+    width: 100%;
 }
 
 
 .btn-group {
-    grid-column: 8/9;
+    /* grid-column: 8/9;
     grid-row: 2;
-    align-self: bottom;
+    align-self: bottom; */
+    /* position: absolute; */
 }
 
 .btn-group button {
@@ -218,6 +220,10 @@ input[type="time"] {
   background-color:white;
   color: #04a2ff;
   width: 100%;
+}
+
+.dashboard {
+    position: relative;
 }
 
 
@@ -237,7 +243,58 @@ canvas {
     grid-column: 5/7;
     justify-self: center;
 }
+
+#mobile {
+    display: none;
+    height: 5vh;
+}
+
+#activities-btn {
+    height: 5vh;
+    align-self: end;
+    position: absolute;
+}
 /* Media query for phone portrait */
+@media screen and (max-width: 917px) {
+    .navbar-menu {
+        display: none;
+    }
+    #mobile {
+        display: grid;
+        grid-column: 1/11;
+        grid-row: 1/2;
+        width: 100%;
+        height: 33%;
+        align-self: end;
+    }
+
+    .console-container {
+        grid-row: 2/8;
+        grid-column: 1/11;
+      }
+    
+    .header h2 {
+        display: none;
+    }
+
+    .header {
+        display: block;
+    }
+
+    .logo {
+        margin: 0 auto;
+    }
+
+    label[for="file-upload"]{
+        border: none;
+        background-color: white;
+    }
+}
+
+
+
+
+
 @media screen and (max-width: 768px) and (orientation: portrait) {
     [data-time] {
         display: none;
@@ -267,9 +324,9 @@ canvas {
     }    
     [data-logo] {
         width: 250px;
-    }
+    /* }
     [data-dropdown] {
-        grid-column: 2/6;
+        grid-column: 2/6; */
     }
     h3 {
         font-size: 12px;

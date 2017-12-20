@@ -13,6 +13,8 @@ var token = '<USER TOKEN>';
 var multer  = require('multer')
 var upload = multer({ dest: 'public/uploads/' });
 var app = express();
+
+
 // Reset file at midnight of each day
 // setInterval(function(){
 //   now = new Date();
@@ -24,12 +26,20 @@ var app = express();
 // }, 1000);
 
 //Load static resources (HTML, CSS, JS)
-app.use('/admin', express.static('admin'));
 app.use('/', express.static('public'));
+app.use('/admin', express.static('auth'));
 //Handle GET requests for userRecords
 app.post('/admin', parseURL, function(req, res){
+  console.log(req.header('PATH'));
+  if (req.header('TOKEN') === token){
     //Send admin page if authentication is successful
-    req.body && res.sendFile('/Users/tylercampbell/Desktop/calendly_dashboard_api/admin/admin.html');
+    app.use('/user', express.static('admin'));
+    req.body && res.send('/user');
+  } else if (req.header('PATH') === '/user/') {
+    res.send('invalid user');
+  } else {
+    res.sendStatus(403);
+  }
 });
 
 app.get('/currentUsers', function(req, res){
@@ -51,12 +61,6 @@ app.get('/dailyGoal', function(req, res){
     data ? dailyGoal = JSON.parse(data) : dailyGoal = "No data";
     res.send(JSON.stringify(dailyGoal));
     });
-});
-
-
-app.post('/admin', parseURL, function(req, res){
-  //Send admin page if authentication is successful
-  req.body && res.sendFile('/Users/tylercampbell/Desktop/calendly_dashboard_api/admin/admin.html');
 });
 
 //Handle post request from Admin console (goals)
@@ -105,12 +109,6 @@ app.post('/api/removeuser', parseURL, function(req, res){
     });
   }
 });
-
-//TEST
-// app.post('/api/adduser', upload.single('img'), function(req, res){
-//     console.log(req.file.path);
-//     res.end();
-// });
 
 //Handle post requests from Admin console (add user)
 app.post('/api/adduser', upload.single('img'), function(req, res){

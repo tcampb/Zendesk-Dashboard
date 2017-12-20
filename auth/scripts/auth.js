@@ -56,42 +56,34 @@ function configureData(){
      //Add password reset eventListener
      passwordReset.on('click', function(event){
          event.preventDefault();
+         var auth = firebase.auth();
          const emailValue = email.val();
-         const passwordValue = password.val();
-         const auth = firebase.auth();
-         promise = auth.signInWithEmailAndPassword(emailValue, passwordValue);
-         promise.catch(function(error){
-             console.log(error.code);
-             switch (error.code) {
-                 case "////auth/invalid-email":
-                     break;
-                 case "///////auth/user-not-found":
-                     break;
-                 default:
-                     auth.sendPasswordResetEmail(emailValue).then(function(){
-                         $('.reset').text(`Please check your ${email.val()} inbox for a reset password link.`);
-                     }).catch(function(error){
-                         $('.reset').text('An unexpected error occurred. Please try again later.').addClass('error');
-                     })
-             }
+         auth.sendPasswordResetEmail(emailValue).then(function(){
+            $('.reset').text(`Please check your ${email.val()} inbox for a reset password link.`);
+         }).catch(function(error){
+            $('.reset').text('An unexpected error occurred. Please try again later.').addClass('error');
          });
-     });
+        });
      
      //Return Admin console if authentication is successful
      firebase.auth().onAuthStateChanged(function(user){
+         var token;
          if (user){
              localStorage.setItem("userId", user.uid);
+             token = localStorage.getItem("userId");
              email.val("");
              password.val("");
+             console.log(token);
              $.ajax({
                  type: 'POST',
                  url: '/admin',
                  data: user.uid,
-                 success(response){;
-                     document.open();
-                     document.write(response);
-                     document.close();
-                 } 
+                 beforeSend: function(xhr) {
+                    xhr.setRequestHeader('TOKEN', token);
+                 },
+                 success(response){
+                    window.location.assign(response);
+                 }
              })
          }
      });
