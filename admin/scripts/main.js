@@ -1,5 +1,19 @@
 var objectArray = [];
-var currentURL = 'http://54db5e67.ngrok.io';
+var currentURL = 'https://bc97565a.ngrok.io';
+
+function accountValidation() {
+    $.ajax({
+        type: 'POST',
+        url:  '/admin',
+        beforeSend: function(xhr){
+            xhr.setRequestHeader('TOKEN', localStorage.getItem("userId"));
+            xhr.setRequestHeader('PATH', window.location.pathname);
+        },
+        success: function(res){
+            res === 'invalid user' && window.location.assign('/admin');
+        }
+    })
+}
 
 function getCurrentUsers(){
     $.get('/currentUsers', function(data){
@@ -144,10 +158,11 @@ function createConsoleElement(select, objectArray){
 };
 
 $(document).ready(function(){
+    //Ensure that user did not logout
+    accountValidation();
     setInterval(function(){
         getCurrentUsers();
     }, 1000);
-        
     $('[data-select]').click(function(event){
         event.preventDefault();
         $('[data-select]').removeClass('selected');

@@ -67,19 +67,23 @@ function configureData(){
      
      //Return Admin console if authentication is successful
      firebase.auth().onAuthStateChanged(function(user){
+         var token;
          if (user){
              localStorage.setItem("userId", user.uid);
+             token = localStorage.getItem("userId");
              email.val("");
              password.val("");
+             console.log(token);
              $.ajax({
                  type: 'POST',
                  url: '/admin',
                  data: user.uid,
-                 success(response){;
-                     document.open();
-                     document.write(response);
-                     document.close();
-                 } 
+                 beforeSend: function(xhr) {
+                    xhr.setRequestHeader('TOKEN', token);
+                 },
+                 success(response){
+                    window.location.assign(response);
+                 }
              })
          }
      });
