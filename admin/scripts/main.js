@@ -1,5 +1,5 @@
 var objectArray = [];
-var currentURL = 'https://bc97565a.ngrok.io';
+var currentURL = '<URL>';
 
 function accountValidation() {
     $.ajax({
