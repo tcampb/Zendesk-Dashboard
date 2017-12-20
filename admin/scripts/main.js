@@ -1,5 +1,5 @@
 var objectArray = [];
-var currentURL;
+var currentURL = 'http://54db5e67.ngrok.io';
 
 function getCurrentUsers(){
     $.get('/currentUsers', function(data){
@@ -60,7 +60,7 @@ function generateConsoleScreen(e, objectArray) {
     switch (e) {
         case "logout":
             localStorage.clear();
-            location.assign(currentURL);
+            location.assign(`${currentURL}/admin`);
             break;
 
         case "adduser":

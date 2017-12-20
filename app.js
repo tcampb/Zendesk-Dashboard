@@ -53,7 +53,6 @@ app.get('/dailyGoal', function(req, res){
     });
 });
 
-
 app.post('/admin', parseURL, function(req, res){
   //Send admin page if authentication is successful
   req.body && res.sendFile('/Users/tylercampbell/Desktop/calendly_dashboard_api/admin/admin.html');
