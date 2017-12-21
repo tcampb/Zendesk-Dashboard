@@ -1,5 +1,5 @@
-// var runAnimation = true;
-
+var goalsAchieved = 0;
+var runAnimation = true;
 function formatAMPM(currentTime){
     var meridiem;
     var minutes = currentTime.getMinutes();
@@ -84,9 +84,10 @@ $(document).ready(function(){
     });
     $.get('/dailyGoal', function(data){
         var data = JSON.parse(data);
-        var runAnimation;
         if (data != "No data") {
-            data.ticketsCompleted === "0" ? runAnimation = true : runAnimation = false;
+            if (data.ticketsCompleted === "0") {
+                runAnimation = true;
+            }
             var goalHour = data.time.slice(0, 2);
             var goalMinutes = data.time.slice(3);
             var goalTime = new Date();
@@ -95,13 +96,14 @@ $(document).ready(function(){
             var currentTime = new Date();
             var currentTimeAMPM = formatAMPM(currentTime);
             var ticketsRemaining = Number(data.ticketNumber) - Number(data.ticketsCompleted);
+            ticketsRemaining < 0 ? ticketsRemaining = 0 : ticketsRemaining;
             $('[data-time]').text(" " + currentTime.toDateString() + " " + currentTimeAMPM);
             $('[data-goals]').text(` ${data.ticketNumber} Tickets`);
             $('[data-goal-time]').text(` ${formatAMPM(goalTime)}`);
             $('[data-counter]').text(` ${ticketsRemaining}`);
             $('[data-div-goals]').removeClass('hidden');
             $('[data-time]').removeClass('hidden');
-            if ((goalsAchieved === 1) && !newGoal) {
+            if ((goalsAchieved === 1) && !runAnimation) {
                 $('[data-goal-achieved-icon]').remove();
                 $('<i class="fa fa-check" aria-hidden="true" style="color: #00c199"></i> data-goal-achieved-icon').prependTo($('[data-goals]'))
                 $('<i class="fa fa-check" aria-hidden="true" style="color: #00c199"></i> data-goal-achieved-icon').prependTo($('[data-goal-time]'))
