@@ -117,13 +117,15 @@ remove the team member from the Dashboard and Admin Panel display.
 <p>It was requested that animations were installed that celebrated individual as well as group accomplishments for each day.</p>
 <h3>Individual Goals Met</h3>
 <p>When an individual support team member reaches a predetermined goal for tickets solved, a bouncing rainbow colored sheep appears above their progress bar and is translated from the far right of the bar to just in front of their name. The length of their name is calculated so the sheep stops at correct place no matter the name length. </p>
+<img src="screen_shots/Screen_shot_individual_animation.png" alt="" width=60%>
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/l-G5I9dOWBs?rel=0" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+[Watch it here on YouTube](https://www.youtube.com/watch?v=l-G5I9dOWBs)
 
 <h3>Team Goal Met</h3>
 <p>There is a team goal displayed at the top of the dashboard.  When this goal is met, a large group of rainbow sheep, that takes up the verticle space of the screen, is translated from right to left across the screen.</p>
+<img src="screen_shots/Screen_shot_group_animation.png" width=60%>
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/w6empBHolBU?rel=0" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+[Watch it here on Youtube](https://www.youtube.com/watch?v=Iq-ShovzZOg)
 
 <h2>Challenges</h2>
 <ul>
