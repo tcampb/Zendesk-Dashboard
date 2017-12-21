@@ -1,5 +1,4 @@
-var goalsAchieved = 0;
-var runAnimation = true;
+// var runAnimation = true;
 
 function formatAMPM(currentTime){
     var meridiem;
@@ -85,10 +84,9 @@ $(document).ready(function(){
     });
     $.get('/dailyGoal', function(data){
         var data = JSON.parse(data);
-        var newGoal;
+        var runAnimation;
         if (data != "No data") {
-            data.ticketsCompleted === "0" ? newGoal = true : newGoal = false;
-            if (newGoal && data.ticketsCompleted != 0) {runAnimation = true};
+            data.ticketsCompleted === "0" ? runAnimation = true : runAnimation = false;
             var goalHour = data.time.slice(0, 2);
             var goalMinutes = data.time.slice(3);
             var goalTime = new Date();
