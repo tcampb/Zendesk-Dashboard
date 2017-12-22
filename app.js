@@ -1,46 +1,23 @@
-var fs = require('fs');
-var express = require('express');
-var hostname = '127.0.0.1';
-var port = 80;
-var bodyParser = require('body-parser');
-var parseJSON = bodyParser.json();
-var parseURL = bodyParser.urlencoded({ extended: false });
-var currentUsers = {};
-var userRecords = {};
-var midnight = "00:00:00";
-var re = new RegExp('..:..:..');
-var token = '<USER TOKEN>';
-var multer  = require('multer')
-var upload = multer({ dest: 'public/uploads/' });
-var app = express();
-
-
-// Reset file at midnight of each day
-// setInterval(function(){
-//   now = new Date();
-//   now = now.toString().match(re)[0];
-//   console.log(now);
-//   if (midnight === now) {
-//     fs.writeFile('baseFile.json', JSON.stringify(baseFile));
-//   }
-// }, 1000);
+var fs = require('fs'),
+    express = require('express'),
+    hostname = '127.0.0.1',
+    port = 80,
+    bodyParser = require('body-parser'),
+    parseJSON = bodyParser.json(),
+    parseURL = bodyParser.urlencoded({ extended: false }),
+    currentUsers = {},
+    userRecords = {},
+    token = '<USER TOKEN>',
+    multer  = require('multer')
+    upload = multer({ dest: 'public/uploads/' }),
+    app = express();
 
 //Load static resources (HTML, CSS, JS)
 app.use('/', express.static('public'));
 app.use('/admin', express.static('auth'));
-//Handle GET requests for userRecords
-app.post('/admin', parseURL, function(req, res){
-  console.log(req.header('PATH'));
-  if (req.header('TOKEN') === token){
-    //Send admin page if authentication is successful
-    app.use('/user', express.static('admin'));
-    req.body && res.send('/user');
-  } else if (req.header('PATH') === '/user/') {
-    res.send('invalid user');
-  } else {
-    res.sendStatus(403);
-  }
-});
+
+
+/////////////Handle GET requests
 
 app.get('/currentUsers', function(req, res){
   fs.readFile('currentUsers.json', 'utf8', function(err, data){
@@ -63,6 +40,9 @@ app.get('/dailyGoal', function(req, res){
     });
 });
 
+/////////////Handle POST requests
+
+
 //Handle post request from Admin console (goals)
 app.post('/api/setgoal', parseURL, function(req, res){
   if (req.header('TOKEN') != token) {
@@ -78,11 +58,9 @@ app.post('/api/removeuser', parseURL, function(req, res){
   if (req.header('TOKEN') != token) {
     res.sendStatus(403);
   } else {
-      console.log(res.data);
       var userName = JSON.parse(JSON.stringify(req.body));
       var userFound;
       userName = userName.username;
-      console.log(userName);
       function findUser(object, name){
         for (key in object) {
           object[key].name === name ? delete object[key] : console.log("Incorrect user");
@@ -97,7 +75,6 @@ app.post('/api/removeuser', parseURL, function(req, res){
           res.redirect('/admin');
         });
   }
-
   fs.readFile('currentUsers.json', 'utf8', function(err, data){
     
     data ? currentUsers = JSON.parse(data) : currentUsers = {};
@@ -166,10 +143,23 @@ app.post('/api/post', parseJSON, function(req, res){
               fs.writeFile('dailyGoal.json', JSON.stringify(data));
               res.status(201).send("Success");
             }
-          }) 
-        })
-      })
-    })
+          }); 
+        });
+      });
+    });
+  
+  //Handle requests to access admin console
+  app.post('/admin', parseURL, function(req, res){
+    if (req.header('TOKEN') === token){
+      //Send admin page if authentication is successful
+      app.use('/user', express.static('admin'));
+      req.body && res.send('/user');
+    } else if (req.header('PATH') === '/user/') {
+      res.send('invalid user');
+    } else {
+      res.sendStatus(403);
+    }
+  });
 
 //Listen to port 
 app.listen(80);
