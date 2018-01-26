@@ -3,6 +3,17 @@
 <h4>Released: December 20, 2017</h4>
 <h4>To: Calendly</h4>
 <h4>Deployed: December 20, 2017</h4>
+<h4>Languages and Technologies used</h4>
+<ul>
+<li>Node.js</li>
+<li>Express</li>
+<li>JavaScript</li>
+<li>jQuery</li>
+<li>HTML</li>
+<li>CSS</li>
+<li>Google Firebase</li>
+<li>Amazon Web Services (AWS)</li>
+</ul>
 <h3>Purpose</h3>
 <p>This app was written as a front-end project for DigitalCrafts 16-week Full-Stack Immersion Bootcamp. The idea was presented to Tyler Campbell by Calendly employee, Joelle Waksman. Joelle wished for a 
 dashboard to display her teams realtime progress on support requests for the day. Joelle's reaction
