@@ -1,23 +1,34 @@
-var fs = require('fs'),
-    express = require('express'),
-    hostname = '127.0.0.1',
-    port = 80,
-    bodyParser = require('body-parser'),
-    parseJSON = bodyParser.json(),
-    parseURL = bodyParser.urlencoded({ extended: false }),
-    currentUsers = {},
-    userRecords = {},
-    token = '<USER TOKEN>',
-    multer  = require('multer')
-    upload = multer({ dest: 'public/uploads/' }),
-    app = express();
+var fs = require('fs');
+var express = require('express');
+var hostname = '127.0.0.1';
+var port = 7000;
+var bodyParser = require('body-parser');
+var parseJSON = bodyParser.json();
+var parseURL = bodyParser.urlencoded({ extended: false });
+var currentUsers = {};
+var userRecords = {};
+var token = '<USER TOKEN>';
+var multer  = require('multer')
+var upload = multer({ dest: 'public/uploads/' });
+var app = express();
+
 
 //Load static resources (HTML, CSS, JS)
 app.use('/', express.static('public'));
 app.use('/admin', express.static('auth'));
-
-
-/////////////Handle GET requests
+//Handle GET requests for userRecords
+app.post('/admin', parseURL, function(req, res){
+  console.log(req.header('PATH'));
+  if (req.header('TOKEN') === token){
+    //Send admin page if authentication is successful
+    app.use('/user', express.static('admin'));
+    req.body && res.send('/user');
+  } else if (req.header('PATH') === '/user/') {
+    res.send('invalid user');
+  } else {
+    res.sendStatus(403);
+  }
+});
 
 app.get('/currentUsers', function(req, res){
   fs.readFile('currentUsers.json', 'utf8', function(err, data){
@@ -35,13 +46,10 @@ app.get('/userRecords', function(req, res){
 
 app.get('/dailyGoal', function(req, res){
   fs.readFile('dailyGoal.json', 'utf8', function(err, data){
-    data ? dailyGoal = JSON.parse(data) : dailyGoal = "No data";
+    data ? dailyGoal = JSON.parse(data) : dailyGoal = "No data"; 
     res.send(JSON.stringify(dailyGoal));
     });
 });
-
-/////////////Handle POST requests
-
 
 //Handle post request from Admin console (goals)
 app.post('/api/setgoal', parseURL, function(req, res){
@@ -75,6 +83,7 @@ app.post('/api/removeuser', parseURL, function(req, res){
           res.redirect('/admin');
         });
   }
+
   fs.readFile('currentUsers.json', 'utf8', function(err, data){
     
     data ? currentUsers = JSON.parse(data) : currentUsers = {};
@@ -92,6 +101,7 @@ app.post('/api/adduser', upload.single('img'), function(req, res){
   if (req.header('TOKEN') != token) {
     res.sendStatus(403);
   } else {
+    
     var userInfo = JSON.parse(JSON.stringify(req.body));
     var userName = userInfo.username;
     var imgSrc = req.file.path.replace('public', '');
@@ -118,9 +128,10 @@ app.post('/api/adduser', upload.single('img'), function(req, res){
 
 //Handle post requests from Zendesk
 app.post('/api/post', parseJSON, function(req, res){
-  console.log(req.headers);
+  
   var userObject = req.body;
   fs.readFile('currentUsers.json', 'utf8', function(err, data){
+      
       currentUsers = Object.values(Object.values(JSON.parse(data)));
       currentUserNames = [];
       currentUsers.forEach(function(user){
@@ -130,6 +141,7 @@ app.post('/api/post', parseJSON, function(req, res){
       
       fs.readFile('userRecords.json', 'utf8', function(err, data){
         //Ensure that user in POST request is listed in the currentUsers object
+	
         var userAction = Object.keys(userObject)[0];
         var userName = Object.values(userObject)[0];
         userRecords = JSON.parse(data);
@@ -140,27 +152,17 @@ app.post('/api/post', parseJSON, function(req, res){
             var data = JSON.parse(data);
             if (userAction === data.ticketType) {
               data.ticketsCompleted = Number(data.ticketsCompleted) + 1;
-              fs.writeFile('dailyGoal.json', JSON.stringify(data));
+              fs.writeFile('dailyGoal.json', JSON.stringify(data), (err) => {
+		console.log(err);
+		});
               res.status(201).send("Success");
             }
-          }); 
-        });
-      });
-    });
-  
-  //Handle requests to access admin console
-  app.post('/admin', parseURL, function(req, res){
-    if (req.header('TOKEN') === token){
-      //Send admin page if authentication is successful
-      app.use('/user', express.static('admin'));
-      req.body && res.send('/user');
-    } else if (req.header('PATH') === '/user/') {
-      res.send('invalid user');
-    } else {
-      res.sendStatus(403);
-    }
-  });
+	    else {res.status(202).send("Success")};
+          }) 
+        })
+      })
+    })
 
 //Listen to port 
-app.listen(80);
+app.listen(7000);
 console.log(`Server running at http://${hostname}:${port}/`);
