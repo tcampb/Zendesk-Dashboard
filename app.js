@@ -164,5 +164,6 @@ app.post('/api/post', parseJSON, function(req, res){
     })
 
 //Listen to port 
-app.listen(7000);
+// app.listen(7000);
+app.listen(process.env.PORT || 3000);
 console.log(`Server running at http://${hostname}:${port}/`);
