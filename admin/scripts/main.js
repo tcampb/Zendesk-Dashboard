@@ -1,5 +1,5 @@
 var objectArray = [];
-var currentURL = 'https://00c584f7.ngrok.io';
+var currentURL = 'http://calendly-happiness-dashboard.herokuapp.com';
 
 function accountValidation() {
     $.ajax({
