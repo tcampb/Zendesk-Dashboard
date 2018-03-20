@@ -1,5 +1,5 @@
 var objectArray = [];
-var currentURL = 'http://calendly-happiness-dashboard.herokuapp.com';
+var currentURL = 'http://calendly-happiness-dashboard.herokuapp.com/';
 
 function accountValidation() {
     $.ajax({
