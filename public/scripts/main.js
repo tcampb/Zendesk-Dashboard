@@ -50,7 +50,7 @@ function goalAchieved() {
         xAxis = String(Math.random() * $('[data-wrapper]').prop('clientWidth') + 2000) + 'px';
         yAxis = String(Math.random() * $('[data-wrapper]').prop('clientHeight')) + 'px';
         sheepImg = $('<img>').attr({'data-goal-achieved': '', 
-                                    'src': '/stylesheets/sheepy.gif', 
+                                    'src': 'stylesheets/sheepy.gif', 
                                     'style': `position: absolute; z-index: 1; bottom: ${yAxis}; left: ${xAxis}`
                                     }).appendTo('body');
     }
@@ -144,7 +144,7 @@ $(document).ready(function(){
                     tdInfo = $('<td>').addClass('col-md-5').attr({'data-info': object.name, 'id': 'table-mobile'});
                     $('tbody tr:last').append(tdImg, tdInfo);
                     $('<img>').attr('src', object.imgSrc).appendTo(tdImg);
-                    $(`<h3><span data-name="${object.name}">${object.name}</span><img src="/stylesheets/sheepy.gif" data-sheep-animation="${object.name}" class="hide"></h3>`).appendTo(tdInfo);
+                    $(`<h3><span data-name="${object.name}">${object.name}</span><img src="stylesheets/sheepy.gif" data-sheep-animation="${object.name}" class="hide"></h3>`).appendTo(tdInfo);
                     progressBarAssignedDiv = $('<div>').attr({'class': 'progress'});
                     $('<div>').attr({'class': `progress-bar progress-bar-striped active assigned`,
                                         'role': "progressbar",
