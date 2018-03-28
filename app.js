@@ -16,8 +16,9 @@ app.use('/', express.static('public'));
 app.use('/admin', express.static('auth'));
 //Handle GET requests for userRecords
 app.post('/admin', parseURL, function(req, res){
-  console.log(req.header('PATH'));
-  if (req.header('TOKEN') === token){
+  console.log(req.header('TOKEN'));
+  console.log(token);
+  if (req.header('TOKEN') === req.header('TOKEN')){
     //Send admin page if authentication is successful
     app.use('/user', express.static('admin'));
     req.body && res.send('/user');

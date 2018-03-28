@@ -162,7 +162,8 @@ td h3 {
 }
 
 .picture-size img {
-    width: 7vw;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
 }
 

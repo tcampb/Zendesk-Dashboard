@@ -2,13 +2,13 @@ function configureData(){
     
      // Initialize Firebase
      const config = {
-         apiKey: "AIzaSyCamwmj4QqCWe9rykcuqQrzYYlAgkGx8yc",
-         authDomain: "zendesk-dashboard-f13ba.firebaseapp.com",
-         databaseURL: "https://zendesk-dashboard-f13ba.firebaseio.com",
-         projectId: "zendesk-dashboard-f13ba",
-         storageBucket: "zendesk-dashboard-f13ba.appspot.com",
-         messagingSenderId: "787748198564"
-     };
+        apiKey: "AIzaSyDrWRIkubcViLyQTKhN7ltrFKJOsmzQhjU",
+        authDomain: "calendly-happiness-dashboard.firebaseapp.com",
+        databaseURL: "https://calendly-happiness-dashboard.firebaseio.com",
+        projectId: "calendly-happiness-dashboard",
+        storageBucket: "calendly-happiness-dashboard.appspot.com",
+        messagingSenderId: "849220566891"
+      };
      firebase.initializeApp(config);
      const email = $('[data-email]');
      const password = $('[data-password]');
