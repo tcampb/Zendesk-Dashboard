@@ -5,10 +5,12 @@ var parseJSON = bodyParser.json();
 var parseURL = bodyParser.urlencoded({ extended: false });
 var currentUsers = {};
 var userRecords = {};
-var token = process.env.USER_TOKEN;
 var multer  = require('multer')
 var upload = multer({ dest: 'public/uploads/' });
 var app = express();
+
+require('dotenv').config()
+var token = process.env.TOKEN;
 
 
 //Load static resources (HTML, CSS, JS)
@@ -16,9 +18,8 @@ app.use('/', express.static('public'));
 app.use('/admin', express.static('auth'));
 //Handle GET requests for userRecords
 app.post('/admin', parseURL, function(req, res){
-  console.log(req.header('TOKEN'));
-  console.log(token);
-  if (req.header('TOKEN') === req.header('TOKEN')){
+  console.log(req.header('PATH'));
+  if (req.header('TOKEN') === token){
     //Send admin page if authentication is successful
     app.use('/user', express.static('admin'));
     req.body && res.send('/user');
@@ -52,7 +53,7 @@ app.get('/dailyGoal', function(req, res){
 
 //Handle post request from Admin console (goals)
 app.post('/api/setgoal', parseURL, function(req, res){
-  if (req.header('TOKEN') != token) {
+  if (req.header('TOKEN') != token ) {
     res.sendStatus(403);
   } else {
     fs.writeFile('dailyGoal.json', JSON.stringify(req.body));
@@ -136,6 +137,8 @@ app.post('/api/post', parseJSON, function(req, res){
       currentUsers.forEach(function(user){
         currentUserNames.push(user.name);
       });
+
+      console.log(currentUserNames);
       
       
       fs.readFile('userRecords.json', 'utf8', function(err, data){
@@ -143,26 +146,28 @@ app.post('/api/post', parseJSON, function(req, res){
 	
         var userAction = Object.keys(userObject)[0];
         var userName = Object.values(userObject)[0];
+        console.log(userName);
         userRecords = JSON.parse(data);
         currentUserNames.includes(userName) ? userRecords[userAction][userName] += 1 : console.log("User not found");
         fs.writeFile('userRecords.json', JSON.stringify(userRecords));
         
         fs.readFile('dailyGoal.json', 'utf8', function(err, data){
+            console.log(data);
             var data = JSON.parse(data);
             if (userAction === data.ticketType) {
               data.ticketsCompleted = Number(data.ticketsCompleted) + 1;
               fs.writeFile('dailyGoal.json', JSON.stringify(data), (err) => {
-		console.log(err);
-		});
+		            console.log(err);
+		          });
               res.status(201).send("Success");
+            } else {
+              res.status(202).send("Success")
             }
-	    else {res.status(202).send("Success")};
-          }) 
-        })
-      })
-    })
+          });
+        });
+      });
+    });
 
 //Listen to port 
-// app.listen(7000);
-app.listen(process.env.PORT || 3000);
+app.listen(3000);
 console.log(`Server running`);
