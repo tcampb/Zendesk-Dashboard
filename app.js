@@ -1,7 +1,5 @@
 var fs = require('fs');
 var express = require('express');
-var hostname = '127.0.0.1';
-var port = 7000;
 var bodyParser = require('body-parser');
 var parseJSON = bodyParser.json();
 var parseURL = bodyParser.urlencoded({ extended: false });
@@ -166,4 +164,4 @@ app.post('/api/post', parseJSON, function(req, res){
 //Listen to port 
 // app.listen(7000);
 app.listen(process.env.PORT || 3000);
-console.log(`Server running at http://${hostname}:${port}/`);
+console.log(`Server running`);
