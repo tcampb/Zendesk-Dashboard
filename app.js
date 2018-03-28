@@ -7,11 +7,22 @@ var currentUsers = {};
 var userRecords = {};
 var multer  = require('multer')
 var upload = multer({ dest: 'public/uploads/' });
+var preAuth = require('http-auth');
+
 var app = express();
 
 require('dotenv').config()
 var token = process.env.TOKEN;
 
+var basic = preAuth.basic({
+    realm: "Restricted Access! Please login to proceed"
+  }, function (username, password, callback) { 
+    callback( (username === process.env.BASIC_AUTH_USER && password === process.env.BASIC_AUTH_PASSWORD));
+  }
+);
+
+
+app.use(preAuth.connect(basic));
 
 //Load static resources (HTML, CSS, JS)
 app.use('/', express.static('public'));
@@ -168,6 +179,9 @@ app.post('/api/post', parseJSON, function(req, res){
       });
     });
 
+// Setup server
+    
+var server = require('http').createServer(app);
 //Listen to port 
-app.listen(process.env.PORT || 4000)
+server.listen(process.env.PORT || 4000)
 console.log(`Server running`);
